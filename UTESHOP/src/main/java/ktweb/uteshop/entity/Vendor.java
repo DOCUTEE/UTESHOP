@@ -12,6 +12,5 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = "vendorId")
 
 public class Vendor extends User{
-    @OneToMany(mappedBy = "Vendor")
-    private List<Conversation> conversations;
+
 }

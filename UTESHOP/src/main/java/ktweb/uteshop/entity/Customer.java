@@ -10,9 +10,6 @@ import java.util.List;
 
 public class Customer extends User{
     @OneToMany(mappedBy = "customer")
-    private List<Conversation> conversations;
-
-    @OneToMany(mappedBy = "customer")
     private List<Question> questions;
 
     public static void main(String[] args) {

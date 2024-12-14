@@ -123,7 +123,7 @@
 			<div class="col-sm-4 col-lg-3 text-center text-sm-start">
 				<div class="main-logo">
 					<a href="${pageContext.request.contextPath}/customer/home">
-						<img src="${pageContext.request.contextPath}/CommonImage/Logo.jpg"
+						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU3Iu-JCuCrcWVV-wSXqYJlQygBoPPONNPhA&s"
 							 alt="logo" class="img-fluid" width="100" height="100">
 					</a>
 
