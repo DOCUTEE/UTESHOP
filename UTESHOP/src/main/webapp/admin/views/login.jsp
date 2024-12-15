@@ -48,7 +48,7 @@
 <body>
     <div class="container">
         <h1>Administrator Login</h1>
-        <form action="admin/login" method="post">
+        <form action="${pageContext.request.contextPath}/admin/login" method="post">
             <div class="form-group">
                 <label for="email">Email:</label>
                 <input type="email" id="email" name="email" required>

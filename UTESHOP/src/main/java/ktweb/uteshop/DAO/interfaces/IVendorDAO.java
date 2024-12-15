@@ -12,4 +12,5 @@ public interface IVendorDAO {
     List<Vendor> findAll();
     List<Vendor> findByKeyword(String keyword);
     List<Vendor> findByPage(int page, int pageSize);
+    List<Vendor> findByKeywordAndPage(String keyword, int page, int pageSize);
 }

@@ -58,6 +58,19 @@ public class ProductDAOImpl implements IProductDAO {
         em.close();
         return products;
     }
+
+    @Override
+    public List<Product> findByKeywordAndPage(String keyword, int page, int pageSize, int vendorId) {
+        EntityManager em = JPAConfig.getEntityManager();
+        List<Product> products = em.createQuery("SELECT p FROM Product p WHERE p.name LIKE :keyword AND p.vendor.vendorId = :vendorId", Product.class)
+                .setParameter("keyword", "%" + keyword + "%")
+                .setParameter("vendorId", vendorId)
+                .setFirstResult((page - 1) * pageSize)
+                .setMaxResults(pageSize)
+                .getResultList();
+        em.close();
+        return products;
+    }
     public static void main(String[] args) {
 
     }

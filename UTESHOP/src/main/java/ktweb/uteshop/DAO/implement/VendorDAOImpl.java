@@ -84,6 +84,17 @@ public class VendorDAOImpl implements IVendorDAO {
         return vendors;
     }
 
+    @Override
+    public List<Vendor> findByKeywordAndPage(String keyword, int page, int pageSize) {
+        EntityManager entityManager = JPAConfig.getEntityManager();
+        List<Vendor> vendors = entityManager.createQuery("SELECT v FROM Vendor v WHERE v.name LIKE :keyword", Vendor.class)
+                .setParameter("keyword", "%" + keyword + "%")
+                .setFirstResult((page - 1) * pageSize)
+                .setMaxResults(pageSize)
+                .getResultList();
+        entityManager.close();
+        return vendors;
+    }
     public static void main(String[] args) {
 
     }

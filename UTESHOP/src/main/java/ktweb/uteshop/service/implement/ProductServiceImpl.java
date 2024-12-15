@@ -49,4 +49,9 @@ public class ProductServiceImpl implements IProductService {
         ProductDAOImpl productDAO = new ProductDAOImpl();
         return productDAO.findByKeyword(keyword);
     }
+    @Override
+    public List<Product> findByKeywordAndPage(String keyword, int page, int pageSize, int vendorId) {
+        ProductDAOImpl productDAO = new ProductDAOImpl();
+        return productDAO.findByKeywordAndPage(keyword, page, pageSize, vendorId);
+    }
 }

@@ -10,4 +10,5 @@ public interface IProductDAO {
     Product findByName(String productName);
     List<Product> findAll();
     List<Product> findByKeyword(String keyword);
+    List<Product> findByKeywordAndPage(String keyword, int page, int pageSize, int vendorId);
 }
