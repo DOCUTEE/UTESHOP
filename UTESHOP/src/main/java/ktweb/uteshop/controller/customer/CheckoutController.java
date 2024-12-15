@@ -28,10 +28,6 @@ public class CheckoutController extends HttpServlet {
                                 response.sendRedirect(request.getContextPath() + "/customer/login");
                                 return;
                         }
-                        if (session.getAttribute("cartId") == null) {
-                                response.sendRedirect(request.getContextPath() + "customer/error");
-                                return;
-                        }
                         Integer customerId = ((Customer) session.getAttribute("customer")).getCustomerId();
                         Cart cart = cartService.findByCustomerId(customerId);
                         request.setAttribute("cart", cart);
@@ -63,7 +59,6 @@ public class CheckoutController extends HttpServlet {
                         order.setPhone(request.getParameter("phone"));
                         Voucher voucher = voucherService.findById(Integer.parseInt(request.getParameter("voucherId")));
                         order.setDiscount(voucher.getDiscount());
-
                         orderService.checkout(order, cart);
 
                         response.sendRedirect(request.getContextPath() + "/customer/purchase");

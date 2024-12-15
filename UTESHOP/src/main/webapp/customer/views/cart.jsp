@@ -1,65 +1,62 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.List" %>
-<%@ page import="ktweb.uteshop.entity.CartItem" %>
-<%@ page import="ktweb.uteshop.entity.Product" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cart</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container">
-        <h1 class="text-center my-4">Your Cart</h1>
+<div class="container my-5">
+    <h1 class="mb-4">Shopping Cart</h1>
 
-        <%
-            List<CartItem> cartItems = (List<CartItem>) request.getAttribute("cartItems");
-            if (cartItems != null && !cartItems.isEmpty()) {
-                %>
-                <table class="table table-bordered table-hover">
-                    <thead class="thead-light">
-                        <tr>
-                            <th>Product Name</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <%
-                    double grandTotal = 0;
-                    for (CartItem cartItem : cartItems) {
-                        Product product = cartItem.getProduct();
-                        double total = cartItem.getQuantity() * cartItem.getPrice();
-                        grandTotal += total;
-                        %>
-                        <tr>
-                            <td><%= product.getName() %></td>
-                            <td><%= cartItem.getQuantity() %></td>
-                            <td><%= cartItem.getPrice() %></td>
-                            <td><%= total %></td>
-                        </tr>
-                        <%
-                    }
-                    %>
-                    <tr>
-                        <td colspan="3" class="text-right"><strong>Grand Total</strong></td>
-                        <td><%= grandTotal %></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <%
-            } else {
-                %>
-                <h2 class="text-center text-danger">Your cart is empty.</h2>
-                <%
-            }
-        %>
-    </div>
+    <!-- Check if cart exists and has items -->
+    <c:if test="${not empty cart && not empty cart.cartItems}">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="cartItem" items="${cart.cartItems}">
+                <tr>
+                    <td>
+                        <img src="${cartItem.product.productImages[0].productImage}" alt="${cartItem.product.name}" class="img-thumbnail" style="width: 100px; height: 100px;">
+                        <div>${cartItem.product.name}</div>
+                    </td>
+                    <td>${cartItem.quantity}</td>
+                    <td>$<c:out value="${cartItem.product.price}"/></td>
+                    <td>$<c:out value="${cartItem.price}"/></td>
+                    <td>
+                        <form action="${pageContext.request.contextPath}/remove-from-cart" method="post" class="d-inline">
+                            <input type="hidden" name="cartItemId" value="${cartItem.cartItemId}">
+                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <div class="text-end">
+            <a href="${pageContext.request.contextPath}/checkout" class="btn btn-success">Proceed to Checkout</a>
+        </div>
+    </c:if>
+
+    <!-- If cart is empty -->
+    <c:if test="${empty cart || empty cart.cartItems}">
+        <p>Your cart is empty. <a href="${pageContext.request.contextPath}/shop">Continue shopping</a></p>
+    </c:if>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -22,11 +22,20 @@
         <c:if test="${not empty product.productImages}">
           <div id="carouselProductImages" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-              <c:set var="firstImage" value="${product.productImages[0]}"/>
-              <div class="carousel-item active">
-                <img src="${firstImage.productImage}" class="d-block w-100" alt="Product Image">
-              </div>
+              <c:forEach var="image" items="${product.productImages}" varStatus="status">
+                <div class="carousel-item ${status.first ? 'active' : ''}">
+                  <img src="${image.productImage}" class="d-block w-100" alt="Product Image">
+                </div>
+              </c:forEach>
             </div>
+            <a class="carousel-control-prev" href="#carouselProductImages" role="button" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselProductImages" role="button" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </a>
           </div>
         </c:if>
       </div>
@@ -44,13 +53,17 @@
         <p><strong>Description:</strong></p>
         <p><c:out value="${product.descript}"/></p>
 
+
         <!-- Add to Cart Button -->
-        <form action="/add-to-cart" method="post">
+        <form action="${pageContext.request.contextPath}/add-to-cart" method="post" class="mt-3">
           <input type="hidden" name="productId" value="${product.productId}">
+          <div class="mb-3">
+            <label for="quantity" class="form-label"><strong>Quantity:</strong></label>
+            <input type="number" name="quantity" id="quantity" class="form-control" value="1" min="1" max="${product.quantity}" required>
+          </div>
           <button type="submit" class="btn btn-primary">Add to Cart</button>
         </form>
       </div>
-
     </div>
 
     <!-- Product Reviews -->
@@ -60,7 +73,7 @@
         <ul class="list-group">
           <c:forEach var="review" items="${product.reviews}">
             <li class="list-group-item">
-              <strong>${review.Customer.name}</strong>: ${review.content} <br>
+              <strong>${review.customer.name}</strong>: ${review.content} <br>
               <small class="text-muted">Rating: ${review.rating}/5</small>
             </li>
           </c:forEach>

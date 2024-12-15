@@ -1,5 +1,6 @@
 package ktweb.uteshop.DAO.implement;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import ktweb.uteshop.DAO.interfaces.ICartItemDAO;
@@ -74,17 +75,13 @@ public class CartItemDAOImpl implements ICartItemDAO {
         @Override
         public CartItem findByProductId(int productId) {
                 EntityManager em = JPAConfig.getEntityManager();
-                EntityTransaction trans = em.getTransaction();
-                try {
-                        trans.begin();
-                        String sql = "SELECT item FROM CartItem item WHERE item.product.id = :id";
-                        CartItem result = em.createQuery(sql, CartItem.class).setParameter("id", productId).getSingleResult();
-                        trans.commit();
-                        return result;
+                em.getTransaction().begin();
+                String sql = "SELECT item FROM CartItem item WHERE item.product.productId = :id";
+                List<CartItem> result = em.createQuery(sql, CartItem.class).setParameter("id", productId).getResultList();
+                em.getTransaction().commit();
+                if (result.size() > 0) {
+                        return result.get(0);
                 }
-                catch (Exception ex) {
-                        trans.rollback();
-                        throw ex;
-                }
+                return null;
         }
 }
