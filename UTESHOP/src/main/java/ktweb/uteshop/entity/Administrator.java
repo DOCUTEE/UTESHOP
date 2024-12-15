@@ -47,7 +47,6 @@ public abstract class Administrator implements Serializable {
     @Column(name = "isDelete", columnDefinition = "BIT")
     private Boolean isDelete;
 
-    @OneToMany(mappedBy = "Administrator")
-    private List<Product> products;
+
 }
 

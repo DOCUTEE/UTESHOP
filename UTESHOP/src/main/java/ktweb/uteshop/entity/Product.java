@@ -53,6 +53,6 @@ public class Product {
     private Category category;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "vendorId", referencedColumnName = "brandId")
+    @JoinColumn(name = "vendorId", referencedColumnName = "vendorId")
     private Vendor vendor;
 }
