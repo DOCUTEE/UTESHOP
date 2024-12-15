@@ -15,6 +15,10 @@ import java.util.List;
 public class AdminShopController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getSession().getAttribute("admin") == null) {
+            response.sendRedirect(request.getContextPath() + "/admin/login");
+            return;
+        }
         IVendorService vendorService = new VendorServiceImpl();
         String keyword = request.getParameter("keyword");
         int page = 1;

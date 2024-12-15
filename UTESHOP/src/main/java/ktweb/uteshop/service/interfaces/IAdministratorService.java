@@ -11,4 +11,5 @@ public interface IAdministratorService {
         public void update(Administrator administrator);
         public void deleteById(int id);
         public boolean checkLogin(String email, String password);
+        public Administrator findByEmail(String email);
 }

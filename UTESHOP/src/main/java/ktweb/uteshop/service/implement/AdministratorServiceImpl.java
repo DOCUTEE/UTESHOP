@@ -44,4 +44,10 @@ public class AdministratorServiceImpl implements IAdministratorService {
                 }
                 return false;
         }
+
+        @Override
+        public Administrator findByEmail(String email) {
+                return administratorDAO.findByEmail(email);
+        }
+
 }

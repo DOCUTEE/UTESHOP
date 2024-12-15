@@ -17,6 +17,10 @@ import java.util.List;
 public class AdminShopProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getSession().getAttribute("admin") == null) {
+            response.sendRedirect(request.getContextPath() + "/admin/login");
+            return;
+        }
         String keyword = request.getParameter("keyword");
         if (keyword == null) {
             keyword = "";
