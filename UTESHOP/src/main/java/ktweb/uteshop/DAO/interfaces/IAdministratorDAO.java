@@ -13,16 +13,8 @@ public interface IAdministratorDAO {
         void deleteById(int id);
 
         public static void main(String args[]) {
-                IAdministratorDAO administratorDAO = new AdministratorDAOImpl();
-
-                System.out.println("TESTING");
-
-                Administrator administrator = administratorDAO.findById(3);
-                System.out.println(administrator.getName());
-                administrator.setName("thayThinh");
-                administratorDAO.update(administrator);
-                administratorDAO.deleteById(4);
-
 
         }
+
+        Administrator getAdministrator(String email);
 }

@@ -34,4 +34,18 @@ public class AdministratorServiceImpl implements IAdministratorService {
         public void deleteById(int id) {
                 administratorDAO.deleteById(id);
         }
+
+        @Override
+        public boolean login(String email, String password) {
+                Administrator administrator = administratorDAO.getAdministrator(email);
+                if (administrator != null) {
+                        return administrator.getPassword().equals(password);
+                }
+                return false;
+        }
+
+        @Override
+        public Administrator getAdministrator(String email) {
+                return administratorDAO.getAdministrator(email);
+        }
 }

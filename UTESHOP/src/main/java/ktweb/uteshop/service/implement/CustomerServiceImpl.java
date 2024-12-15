@@ -34,4 +34,18 @@ public class CustomerServiceImpl implements ICustomerService {
         public void deleteById(int id) {
                 customerDAO.deleteById(id);
         }
+
+        @Override
+        public boolean login(String email, String password) {
+                Customer customer = customerDAO.findByEmail(email);
+                if (customer != null) {
+                        return customer.getPassword().equals(password);
+                }
+                return false;
+        }
+
+        @Override
+        public Customer findByEmail(String email) {
+                return customerDAO.findByEmail(email);
+        }
 }

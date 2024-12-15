@@ -1,6 +1,7 @@
 package ktweb.uteshop.DAO.implement;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import ktweb.uteshop.DAO.interfaces.IProductDAO;
 import ktweb.uteshop.configs.JPAConfig;
 import ktweb.uteshop.entity.Product;
@@ -58,6 +59,28 @@ public class ProductDAOImpl implements IProductDAO {
         em.close();
         return products;
     }
+
+    @Override
+    public List<Product> findByKeywordAndPage(String keyword, Integer page, Integer productByPage) {
+        EntityManager em = JPAConfig.getEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            String jsql = "SELECT p FROM Product p WHERE p.name LIKE :keyword";
+            List<Product> productList = em.createQuery(jsql, Product.class)
+                    .setParameter("keyword", "%" + keyword + "%")
+                    .setFirstResult((page - 1) * productByPage)
+                    .setMaxResults(productByPage)
+                    .getResultList();
+            trans.commit();
+            return productList;
+        }
+        catch (Exception ex) {
+            trans.rollback();
+            throw ex;
+        }
+    }
+
     public static void main(String[] args) {
 
     }

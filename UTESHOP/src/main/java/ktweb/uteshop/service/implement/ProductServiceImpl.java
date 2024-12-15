@@ -1,6 +1,7 @@
 package ktweb.uteshop.service.implement;
 
 import ktweb.uteshop.DAO.implement.ProductDAOImpl;
+import ktweb.uteshop.DAO.interfaces.IProductDAO;
 import ktweb.uteshop.entity.Product;
 import ktweb.uteshop.service.interfaces.IProductService;
 
@@ -48,5 +49,11 @@ public class ProductServiceImpl implements IProductService {
     public List<Product> findByKeyword(String keyword) {
         ProductDAOImpl productDAO = new ProductDAOImpl();
         return productDAO.findByKeyword(keyword);
+    }
+
+    @Override
+    public List<Product> findByKeywordAndPage(String keyword, Integer page, Integer productByPage) {
+        IProductDAO productDAO = new ProductDAOImpl();
+        return productDAO.findByKeywordAndPage(keyword, page, productByPage);
     }
 }

@@ -87,4 +87,21 @@ public class CustomerDAOImpl implements ICustomerDAO {
                         throw ex;
                 }
         }
+
+        @Override
+        public Customer findByEmail(String email) {
+                EntityManager em = JPAConfig.getEntityManager();
+                EntityTransaction trans = em.getTransaction();
+                try {
+                        trans.begin();
+                        String jsql = "SELECT c FROM Customer c WHERE c.email = :email";
+                        Customer customer = em.createQuery(jsql, Customer.class).setParameter("email", email).getSingleResult();
+                        trans.commit();
+                        return customer;
+                }
+                catch (Exception ex) {
+                        trans.rollback();
+                        throw ex;
+                }
+        }
 }

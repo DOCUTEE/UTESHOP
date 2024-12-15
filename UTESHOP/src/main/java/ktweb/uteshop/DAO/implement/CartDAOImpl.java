@@ -42,5 +42,38 @@ public class CartDAOImpl implements ICartDAO {
                 }
         }
 
+        @Override
+        public Cart findById(int id) {
+                EntityManager em = JPAConfig.getEntityManager();
+                EntityTransaction trans = em.getTransaction();
+                try {
+                        trans.begin();
+                        String jsql = "SELECT cart FROM Cart cart WHERE cart.cartId = :id";
+                        Cart cart = em.createQuery(jsql, Cart.class).setParameter("id", id).getSingleResult();
+                        trans.commit();
+                        return cart;
+                }
+                catch (Exception ex) {
+                        trans.rollback();
+                        throw ex;
+                }
+        }
+
+        @Override
+        public void update(Cart cart) {
+                EntityManager em = JPAConfig.getEntityManager();
+                EntityTransaction trans = em.getTransaction();
+                try {
+                        trans.begin();
+                        em.merge(cart);
+                        trans.commit();
+                }
+                catch (Exception ex) {
+                        trans.rollback();
+                        throw ex;
+                }
+
+        }
+
 }
 

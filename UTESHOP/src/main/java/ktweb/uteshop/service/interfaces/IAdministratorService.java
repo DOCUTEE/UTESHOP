@@ -10,4 +10,8 @@ public interface IAdministratorService {
         public void insert(Administrator administrator);
         public void update(Administrator administrator);
         public void deleteById(int id);
+
+        boolean login(String email, String password);
+
+        Administrator getAdministrator(String email);
 }

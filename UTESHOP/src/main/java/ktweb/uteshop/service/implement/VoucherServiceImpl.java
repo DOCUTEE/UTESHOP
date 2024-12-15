@@ -6,7 +6,7 @@ import ktweb.uteshop.service.interfaces.IVoucherService;
 
 import java.util.List;
 
-public class IVoucherServiceImpl implements IVoucherService {
+public class VoucherServiceImpl implements IVoucherService {
     @Override
     public void insert(Voucher voucher) {
         VoucherDAOImpl voucherDAO = new VoucherDAOImpl();
