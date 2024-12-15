@@ -13,4 +13,5 @@ public interface IVendorDAO {
     List<Vendor> findByKeyword(String keyword);
     List<Vendor> findByPage(int page, int pageSize);
     List<Vendor> findByKeywordAndPage(String keyword, int page, int pageSize);
+    Vendor findByEmail(String email);
 }

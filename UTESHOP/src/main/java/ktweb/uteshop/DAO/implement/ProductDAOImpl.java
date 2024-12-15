@@ -72,9 +72,17 @@ public class ProductDAOImpl implements IProductDAO {
         return products;
     }
 
+
     @Override
-    public List<Product> findByVendorId(int vendorId) {
-        return List.of();
+    public List<Product> findByVendorIdAndPage(int vendorId, int page, int pageSize) {
+        EntityManager em = JPAConfig.getEntityManager();
+        List<Product> products = em.createQuery("SELECT p FROM Product p WHERE p.vendor.vendorId = :vendorId", Product.class)
+                .setParameter("vendorId", vendorId)
+                .setFirstResult((page - 1) * pageSize)
+                .setMaxResults(pageSize)
+                .getResultList();
+        em.close();
+        return products;
     }
 
     public static void main(String[] args) {

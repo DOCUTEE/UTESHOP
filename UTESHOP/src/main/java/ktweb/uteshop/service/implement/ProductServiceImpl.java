@@ -56,8 +56,19 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public List<Product> findByVendorId(int vendorId) {
+    public List<Product> findByVendorIdAndPage(int vendorId, int page, int pageSize) {
         ProductDAOImpl productDAO = new ProductDAOImpl();
-        return productDAO.findByVendorId(vendorId);
+        return productDAO.findByVendorIdAndPage(vendorId, page, pageSize);
+    }
+    @Override
+    public void update(int productId, String name, String descript,int quantity,double price,double weight) {
+        ProductDAOImpl productDAO = new ProductDAOImpl();
+        Product product = productDAO.findById(productId);
+        product.setName(name);
+        product.setDescript(descript);
+        product.setQuantity(quantity);
+        product.setPrice(price);
+        product.setWeight(weight);
+        productDAO.update(product);
     }
 }
