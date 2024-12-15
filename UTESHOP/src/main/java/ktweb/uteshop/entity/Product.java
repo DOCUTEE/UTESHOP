@@ -52,6 +52,9 @@ public class Product {
     @JoinColumn(name = "categoryId", referencedColumnName = "categoryId")
     private Category category;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Review> reviews;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "vendorId", referencedColumnName = "vendorId")
     private Vendor vendor;

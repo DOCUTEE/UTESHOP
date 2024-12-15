@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "orders")
+@Table(name = "order")
 public class Order {
 
     @Id
@@ -69,7 +69,6 @@ public class Order {
 				+ ", phone=" + phone + ", totalCost=" + totalCost + ", discount=" + discount + ", actualCost="
 				+ actualCost + ", customer=" + customer + "]";
 	}
-    
 
     public static void main(String[] args) {
 
