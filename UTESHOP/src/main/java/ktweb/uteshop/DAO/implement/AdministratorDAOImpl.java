@@ -50,7 +50,7 @@ public class AdministratorDAOImpl implements IAdministratorDAO {
 
         @Override
         @Transactional
-        public void save(Administrator administrator) {
+        public void insert(Administrator administrator) {
                 EntityManager em = JPAConfig.getEntityManager();
                 EntityTransaction trans = em.getTransaction();
                 try {
