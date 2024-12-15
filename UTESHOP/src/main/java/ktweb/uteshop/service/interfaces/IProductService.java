@@ -1,8 +1,10 @@
-package ktweb.uteshop.DAO.interfaces;
+package ktweb.uteshop.service.interfaces;
 
 import ktweb.uteshop.entity.Product;
+
 import java.util.List;
-public interface IProductDAO {
+
+public interface IProductService {
     void insert(Product product);
     void update(Product product);
     void delete(int productId);
