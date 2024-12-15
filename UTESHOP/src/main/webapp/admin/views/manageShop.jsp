@@ -6,43 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Manage Vendors</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            width: 80%;
-            margin: 0 auto;
-        }
-        .header, .footer {
-            background-color: #f8f8f8;
-            padding: 20px;
-            text-align: center;
-        }
-        .content {
-            margin: 20px 0;
-        }
-        .search-form {
-            margin-bottom: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid #ccc;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-        .pagination {
-            margin-top: 20px;
-        }
-        .pagination a, .pagination span {
-            margin: 0 5px;
-            text-decoration: none;
-        }
         .vendor-link {
             cursor: pointer;
             color: blue;
@@ -51,22 +16,21 @@
     </style>
     <script>
         function selectVendor(vendorId) {
-            // Redirect to a specific page or perform an action with the vendorId
             alert("Vendor ID: " + vendorId);
         }
     </script>
 </head>
 <body>
     <div class="container">
-        <div class="header">
+        <div class="header text-center bg-light py-3">
             <h1>Manage Vendors</h1>
         </div>
 
-        <div class="content">
-            <form action="/admin/shop" method="get" class="search-form">
-                <label for="keyword">Search:</label>
-                <input type="text" id="keyword" name="keyword" value="<%= request.getParameter("keyword") %>" />
-                <button type="submit">Search</button>
+        <div class="content my-4">
+            <form action="${pageContext.request.contextPath}/admin/shop" method="get" class="search-form form-inline mb-3">
+                <label for="keyword" class="mr-2">Search:</label>
+                <input type="text" id="keyword" name="keyword" class="form-control mr-2" value="<%= request.getParameter("keyword") %>" />
+                <button type="submit" class="btn btn-primary">Search</button>
             </form>
 
             <%
@@ -75,14 +39,17 @@
                 Integer totalPages = (Integer) request.getAttribute("totalPages");
                 if (vendorList != null && !vendorList.isEmpty()) {
                     %>
-                    <table>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Address</th>
-                            <th>Select</th>
-                        </tr>
+                    <table class="table table-bordered table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                                <th>Select</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                         <%
                         for (Vendor vendor : vendorList) {
                             %>
@@ -91,40 +58,49 @@
                                 <td><%= vendor.getEmail() %></td>
                                 <td><%= vendor.getPhone() %></td>
                                 <td><%= vendor.getAddress() %></td>
-                                <td><a class="vendor-link" onclick="selectVendor(<%= vendor.getVendorId() %>)">Select</a></td>
+                                <td><a class="vendor-link" href="javascript:void(0);" onclick="selectVendor(<%= vendor.getVendorId() %>)">Select</a></td>
                             </tr>
                             <%
                         }
                         %>
+                        <tr>
+                            <td colspan="5" class="pagination text-center">
+                                Page: <%= currentPage %> of <%= totalPages %>
+                                <%
+                                if (currentPage != null && totalPages != null) {
+                                    for (int i = 1; i <= totalPages; i++) {
+                                        if (i == currentPage) {
+                                            %>
+                                            <span class="badge badge-primary"><%= i %></span>
+                                            <%
+                                        } else {
+                                            %>
+                                            <a href="${pageContext.request.contextPath}/admin/shop?keyword=<%= request.getParameter("keyword") %>&page=<%= i %>" class="badge badge-light"><%= i %></a>
+                                            <%
+                                        }
+                                    }
+                                }
+                                %>
+                            </td>
+                        </tr>
+                        </tbody>
                     </table>
-                    <div class="pagination">
-                        Page: <%= currentPage %> of <%= totalPages %>
-                        <%
-                        for (int i = 1; i <= totalPages; i++) {
-                            if (i == currentPage) {
-                                %>
-                                <span><%= i %></span>
-                                <%
-                            } else {
-                                %>
-                                <a href="/admin/shop?keyword=<%= request.getParameter("keyword") %>&page=<%= i %>"><%= i %></a>
-                                <%
-                            }
-                        }
-                        %>
-                    </div>
                     <%
                 } else {
                     %>
-                    <p>No vendors found.</p>
+                    <p class="text-danger">No vendors found.</p>
                     <%
                 }
             %>
         </div>
 
-        <div class="footer">
+        <div class="footer bg-light text-center py-3">
             <p>&copy; 2024 Our Shop. All rights reserved.</p>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

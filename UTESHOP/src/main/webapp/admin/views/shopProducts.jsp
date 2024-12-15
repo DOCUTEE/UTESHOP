@@ -8,43 +8,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Manage Products</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .container {
-            width: 80%;
-            margin: 0 auto;
-        }
-        .header, .footer {
-            background-color: #f8f8f8;
-            padding: 20px;
-            text-align: center;
-        }
-        .content {
-            margin: 20px 0;
-        }
-        .search-form {
-            margin-bottom: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        table, th, td {
-            border: 1px solid #ccc;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-        }
-        .pagination {
-            margin-top: 20px;
-        }
-        .pagination a, .pagination span {
-            margin: 0 5px;
-            text-decoration: none;
-        }
         .product-link {
             cursor: pointer;
             color: blue;
@@ -59,17 +24,17 @@
 </head>
 <body>
     <div class="container">
-        <div class="header">
+        <div class="header text-center bg-light py-3">
             <h1>Manage Products</h1>
         </div>
 
-        <div class="content">
-            <form action="/admin/shop/product" method="get" class="search-form">
-                <label for="keyword">Search:</label>
-                <input type="text" id="keyword" name="keyword" value="<%= request.getParameter("keyword") %>" />
-                <label for="vendorId">Vendor ID:</label>
-                <input type="number" id="vendorId" name="vendorId" value="<%= request.getParameter("vendorId") %>" />
-                <button type="submit">Search</button>
+        <div class="content my-4">
+            <form action="${pageContext.request.contextPath}/admin/shop/product" method="get" class="search-form form-inline mb-3">
+                <label for="keyword" class="mr-2">Search:</label>
+                <input type="text" id="keyword" name="keyword" class="form-control mr-2" value="<%= request.getParameter("keyword") %>" />
+                <label for="vendorId" class="mr-2">Vendor ID:</label>
+                <input type="number" id="vendorId" name="vendorId" class="form-control mr-2" value="<%= request.getParameter("vendorId") %>" />
+                <button type="submit" class="btn btn-primary">Search</button>
             </form>
 
             <%
@@ -78,17 +43,20 @@
                 Integer totalPages = (Integer) request.getAttribute("totalPages");
                 if (productList != null && !productList.isEmpty()) {
                     %>
-                    <table>
-                        <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Weight</th>
-                            <th>Category</th>
-                            <th>Vendor</th>
-                            <th>Select</th>
-                        </tr>
+                    <table class="table table-bordered table-hover">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Weight</th>
+                                <th>Category</th>
+                                <th>Vendor</th>
+                                <th>Select</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                         <%
                         for (Product product : productList) {
                             %>
@@ -100,40 +68,52 @@
                                 <td><%= product.getWeight() %></td>
                                 <td><%= product.getCategory().getCategoryName() %></td>
                                 <td><%= product.getVendor().getName() %></td>
-                                <td><a class="product-link" onclick="selectProduct(<%= product.getProductId() %>)">Select</a></td>
+                                <td><a class="product-link" href="javascript:void(0);" onclick="selectProduct(<%= product.getProductId() %>)">Select</a></td>
                             </tr>
                             <%
                         }
                         %>
+                        <tr>
+                            <td colspan="8" class="text-center">
+                                <nav>
+                                    <ul class="pagination justify-content-center">
+                                        <%
+                                        if (currentPage != null && totalPages != null) {
+                                            for (int i = 1; i <= totalPages; i++) {
+                                                if (i == currentPage) {
+                                                    %>
+                                                    <li class="page-item active"><span class="page-link"><%= i %></span></li>
+                                                    <%
+                                                } else {
+                                                    %>
+                                                    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/admin/shop/product?keyword=<%= request.getParameter("keyword") %>&vendorId=<%= request.getParameter("vendorId") %>&page=<%= i %>"><%= i %></a></li>
+                                                    <%
+                                                }
+                                            }
+                                        }
+                                        %>
+                                    </ul>
+                                </nav>
+                            </td>
+                        </tr>
+                        </tbody>
                     </table>
-                    <div class="pagination">
-                        Page: <%= currentPage %> of <%= totalPages %>
-                        <%
-                        for (int i = 1; i <= totalPages; i++) {
-                            if (i == currentPage) {
-                                %>
-                                <span><%= i %></span>
-                                <%
-                            } else {
-                                %>
-                                <a href="/admin/shop/product?keyword=<%= request.getParameter("keyword") %>&vendorId=<%= request.getParameter("vendorId") %>&page=<%= i %>"><%= i %></a>
-                                <%
-                            }
-                        }
-                        %>
-                    </div>
                     <%
                 } else {
                     %>
-                    <p>No products found.</p>
+                    <p class="text-danger">No products found.</p>
                     <%
                 }
             %>
         </div>
 
-        <div class="footer">
+        <div class="footer bg-light text-center py-3">
             <p>&copy; 2024 Our Shop. All rights reserved.</p>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
