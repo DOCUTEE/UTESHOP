@@ -52,4 +52,7 @@ public class Product {
     @JoinColumn(name = "categoryId", referencedColumnName = "categoryId")
     private Category category;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "vendorId", referencedColumnName = "brandId")
+    private Vendor vendor;
 }
