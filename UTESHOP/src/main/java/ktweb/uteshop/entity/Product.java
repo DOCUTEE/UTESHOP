@@ -1,4 +1,4 @@
-package ktweb.uteshop.entity;
+`````package ktweb.uteshop.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -58,4 +58,4 @@ public class Product {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "vendorId", referencedColumnName = "vendorId")
     private Vendor vendor;
-}
+}`````
