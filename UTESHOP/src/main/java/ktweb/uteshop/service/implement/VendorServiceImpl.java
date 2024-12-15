@@ -54,4 +54,9 @@ public class VendorServiceImpl implements IVendorService {
         VendorDAOImpl vendorDAO = new VendorDAOImpl();
         return vendorDAO.findByPage(page, pageSize);
     }
+    @Override
+    public List<Vendor> findByKeywordAndPage(String keyword, int page, int pageSize) {
+        VendorDAOImpl vendorDAO = new VendorDAOImpl();
+        return vendorDAO.findByKeywordAndPage(keyword, page, pageSize);
+    }
 }

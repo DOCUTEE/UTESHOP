@@ -14,6 +14,7 @@ import java.util.List;
 public class AdministratorDAOImpl implements IAdministratorDAO {
         @PersistenceContext
 
+
         @Override
         @SuppressWarnings("unchecked")
         public List<Administrator> findAll() {
@@ -98,5 +99,17 @@ public class AdministratorDAOImpl implements IAdministratorDAO {
                         trans.rollback();
                         throw ex;
                 }
+        }
+        @Override
+        public Administrator findByEmail(String email) {
+                //findAdminByEmail
+                EntityManager em = JPAConfig.getEntityManager();
+                em.getTransaction().begin();
+                Administrator admin = em.createQuery("SELECT a FROM Administrator a WHERE a.email = :email", Administrator.class)
+                        .setParameter("email", email)
+                        .getSingleResult();
+                em.getTransaction().commit();
+                em.close();
+                return admin;
         }
 }
