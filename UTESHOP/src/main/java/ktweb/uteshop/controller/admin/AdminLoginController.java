@@ -4,6 +4,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import ktweb.uteshop.entity.Administrator;
 import ktweb.uteshop.service.implement.AdministratorServiceImpl;
 import ktweb.uteshop.service.interfaces.IAdministratorService;
 
@@ -13,6 +14,10 @@ import java.io.IOException;
 public class AdminLoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getSession().getAttribute("admin") != null) {
+            response.sendRedirect(request.getContextPath() + "/admin/shop");
+            return;
+        }
         request.getRequestDispatcher("/admin/views/login.jsp").forward(request, response);
     }
 
@@ -22,6 +27,8 @@ public class AdminLoginController extends HttpServlet {
         String password = request.getParameter("password");
         IAdministratorService administratorService = new AdministratorServiceImpl();
         if (administratorService.checkLogin(email, password)) {
+            Administrator admin = administratorService.findByEmail(email);
+            request.getSession().setAttribute("admin", admin);
             response.sendRedirect(request.getContextPath() + "/admin/shop");
         } else {
             request.setAttribute("message", "Login failed");

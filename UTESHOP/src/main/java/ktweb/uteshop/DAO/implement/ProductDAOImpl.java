@@ -71,6 +71,12 @@ public class ProductDAOImpl implements IProductDAO {
         em.close();
         return products;
     }
+
+    @Override
+    public List<Product> findByVendorId(int vendorId) {
+        return List.of();
+    }
+
     public static void main(String[] args) {
 
     }
