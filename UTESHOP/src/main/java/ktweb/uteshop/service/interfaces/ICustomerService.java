@@ -10,4 +10,8 @@ public interface ICustomerService {
         public void insert(Customer customer);
         public void update(Customer customer);
         public void deleteById(int id);
+
+        boolean login(String email, String password);
+
+        Customer findByEmail(String email);
 }

@@ -24,7 +24,7 @@
             <div class="carousel-inner">
               <c:set var="firstImage" value="${product.productImages[0]}"/>
               <div class="carousel-item active">
-                <img src="${firstImage.url}" class="d-block w-100" alt="Product Image">
+                <img src="${firstImage.productImage}" class="d-block w-100" alt="Product Image">
               </div>
             </div>
           </div>
@@ -37,16 +37,12 @@
         <p><strong>Category:</strong> ${product.category.categoryName}</p>
         <p><strong>Vendor:</strong> ${product.vendor.name}</p>
 
-        <p class="text-success"><strong>Price:</strong> $${product.price}</p>
-        <p><strong>Quantity:</strong> ${product.quantity} available</p>
-        <p><strong>Weight:</strong> ${product.weight} kg</p>
+        <p class="text-success"><strong>Price:</strong> $<c:out value="${product.price}"/></p>
+        <p><strong>Quantity:</strong> <c:out value="${product.quantity}"/> available</p>
+        <p><strong>Weight:</strong> <c:out value="${product.weight}"/> kg</p>
 
         <p><strong>Description:</strong></p>
-        <p>${product.descript}</p>
-
-        <c:if test="${product.isDelete}">
-          <p class="text-danger">This product is currently inactive.</p>
-        </c:if>
+        <p><c:out value="${product.descript}"/></p>
 
         <!-- Add to Cart Button -->
         <form action="/add-to-cart" method="post">
@@ -54,6 +50,7 @@
           <button type="submit" class="btn btn-primary">Add to Cart</button>
         </form>
       </div>
+
     </div>
 
     <!-- Product Reviews -->

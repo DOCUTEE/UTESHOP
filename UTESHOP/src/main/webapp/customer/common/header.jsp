@@ -185,7 +185,7 @@
 				</ul>
 
 				<div class="cart text-end d-none d-lg-block dropdown">
-					<a href="${pageContext.request.contextPath}/customer/cart">Cart</a>
+					<a href="${pageContext.request.contextPath}/cart">Cart</a>
 				</div>
 			</div>
 			<script>

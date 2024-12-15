@@ -14,4 +14,6 @@ public interface IProductService {
     List<Product> findByKeyword(String keyword);
     List<Product> findByKeywordAndPage(String keyword, int page, int pageSize, int vendorId);
     List<Product> findByVendorId(int vendorId);
+
+    List<Product> findByKeywordAndPage(String keyword, Integer page, Integer productByPage);
 }

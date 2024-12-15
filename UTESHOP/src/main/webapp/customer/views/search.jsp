@@ -1,86 +1,54 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.List" %>
-<%@ page import="ktweb.uteshop.entity.Product" %>
-<%@ page import="ktweb.uteshop.entity.Category" %>
-<%@ page import="ktweb.uteshop.entity.Vendor" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Search Products</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Search Results</title>
 </head>
 <body>
-    <h1>Search Products</h1>
-    <form action="search" method="get">
-        <label for="keyword">Enter keyword:</label>
-        <input type="text" id="keyword" name="keyword" value="<%= request.getParameter("keyword") %>" required>
-        <input type="submit" value="Search">
-    </form>
-
-    <%
-        String keyword = request.getParameter("keyword");
-        if (keyword != null && !keyword.trim().isEmpty()) {
-            List<Product> productList = (List<Product>) request.getAttribute("productList");
-            Integer currentPage = (Integer) request.getAttribute("currentPage");
-            Integer totalPages = (Integer) request.getAttribute("totalPages");
-
-            if (productList != null && !productList.isEmpty()) {
-                %>
-                <h2>Search Results for: <%= keyword %></h2>
-                <table border='1'>
-                    <tr>
-                        <th>Name</th>
-                        <th>Price</th>
-                        <th>Description</th>
-                        <th>Quantity</th>
-                        <th>Weight</th>
-                        <th>Category</th>
-                        <th>Vendor</th>
-                    </tr>
-                    <%
-                    for (Product product : productList) {
-                        %>
-                        <tr>
-                            <td><%= product.getName() %></td>
-                            <td><%= product.getPrice() %></td>
-                            <td><%= product.getDescript() %></td>
-                            <td><%= product.getQuantity() %></td>
-                            <td><%= product.getWeight() %></td>
-                            <td><%= product.getCategory() != null ? product.getCategory().getCategoryName() : "N/A" %></td>
-                            <td><%= product.getVendor() != null ? product.getVendor().getName() : "N/A" %></td>
-                        </tr>
-                        <%
-                    }
-                    %>
-                </table>
-                <%
-            } else {
-                %>
-                <h2>No results found for: <%= keyword %></h2>
-                <%
-            }
-
-            if (totalPages != null && totalPages > 1) {
-                %>
-                <div>
-                    Page: <%= currentPage %> of <%= totalPages %>
-                    <%
-                    for (int i = 1; i <= totalPages; i++) {
-                        if (i == currentPage) {
-                            %>
-                            <strong><%= i %></strong>
-                            <%
-                        } else {
-                            %>
-                            <a href="search?keyword=<%= keyword %>&page=<%= i %>"><%= i %></a>
-                            <%
-                        }
-                    }
-                    %>
+<div class="container mt-5">
+    <h1 class="mb-4">Search Results for "<c:out value="${keyword}"/>"</h1>
+    <div class="row">
+        <c:forEach var="product" items="${productList}">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <c:if test="${not empty product.productImages}">
+                        <img src="${product.productImages[0].productImage}" class="card-img-top" alt="${product.name}">
+                    </c:if>
+                    <div class="card-body">
+                        <h5 class="card-title"><c:out value="${product.name}"/></h5>
+                        <p class="card-text"><c:out value="${product.descript}"/></p>
+                        <p class="card-text text-muted">Price: $<c:out value="${product.price}"/></p>
+                        <p class="card-text text-muted">Weight: <c:out value="${product.weight}"/> kg</p>
+                        <a href="${pageContext.request.contextPath}/product-detail?productId=${product.productId}" class="btn btn-primary">View Product</a>
+                    </div>
                 </div>
-                <%
-            }
-        }
-    %>
+            </div>
+        </c:forEach>
+    </div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item <c:if test='${page == 1}'>disabled</c:if>'">
+                <a class="page-link" href="${pageContext.request.contextPath}/search?keyword=${keyword}&page=${page - 1}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <c:forEach begin="1" end="${totalPages}" var="i">
+                <li class="page-item <c:if test='${i == page}'>active</c:if>'"><a class="page-link" href="${pageContext.request.contextPath}/search?keyword=${keyword}&page=${i}">${i}</a></li>
+            </c:forEach>
+            <li class="page-item <c:if test='${page == totalPages}'>disabled</c:if>'">
+                <a class="page-link" href="${pageContext.request.contextPath}/search?keyword=${keyword}&page=${page + 1}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

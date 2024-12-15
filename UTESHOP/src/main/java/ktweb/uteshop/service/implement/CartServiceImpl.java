@@ -8,12 +8,24 @@ import ktweb.uteshop.service.interfaces.ICartService;
 public class CartServiceImpl implements ICartService {
         ICartDAO cartDAO = new CartDAOImpl();
         @Override
-        public Cart findByUserId(int id) {
+        public Cart findByCustomerId(int id) {
                 return cartDAO.findByUserId(id);
+        }
+
+        @Override
+        public Cart findById(int id) {
+                return cartDAO.findById(id);
+
         }
 
         @Override
         public void insert(Cart cart) {
                 cartDAO.insert(cart);
+        }
+
+        @Override
+        public void update(Cart cart) {
+
+                cartDAO.update(cart);
         }
 }

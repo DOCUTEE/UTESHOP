@@ -100,6 +100,23 @@ public class AdministratorDAOImpl implements IAdministratorDAO {
                         throw ex;
                 }
         }
+
+        @Override
+        public Administrator getAdministrator(String email) {
+                EntityManager em = JPAConfig.getEntityManager();
+                EntityTransaction trans = em.getTransaction();
+                try {
+                        trans.begin();
+                        String sql = "SELECT admin FROM Administrator admin WHERE admin.email = :email";
+                        Administrator administrator = em.createQuery(sql, Administrator.class).setParameter("email", email).getSingleResult();
+                        trans.commit();
+                        return administrator;
+                }
+                catch (Exception ex) {
+                        trans.rollback();
+                        throw ex;
+                }
+        }
         @Override
         public Administrator findByEmail(String email) {
                 //findAdminByEmail

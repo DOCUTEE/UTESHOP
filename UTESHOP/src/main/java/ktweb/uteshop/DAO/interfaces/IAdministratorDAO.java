@@ -26,4 +26,6 @@ public interface IAdministratorDAO {
 
         }
 
+
+        Administrator getAdministrator(String email);
 }

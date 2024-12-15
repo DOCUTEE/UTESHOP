@@ -11,4 +11,5 @@ public interface ICustomerDAO {
         public void update(Customer customer);
         public void deleteById(int id);
 
+        Customer findByEmail(String email);
 }
