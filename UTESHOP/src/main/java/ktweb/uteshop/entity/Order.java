@@ -12,9 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "order")
+@Table(name = "`order`")
 public class Order {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "orderId")
@@ -73,8 +72,4 @@ public class Order {
     public static void main(String[] args) {
 
     }
-
-
-
-
 }
