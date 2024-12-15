@@ -90,7 +90,5 @@ public class VoucherDAOImpl implements IVoucherDAO {
             System.out.println(voucher.getCode());
         }
 
-
-
     }
 }
