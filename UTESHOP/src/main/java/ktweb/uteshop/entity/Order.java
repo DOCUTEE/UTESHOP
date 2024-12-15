@@ -53,7 +53,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "customerId", referencedColumnName = "userId", nullable = false)
-    private User customer;
+    private Customer customer;
 
     @ManyToOne
     @JoinColumn(name = "voucherId", referencedColumnName = "voucherId")

@@ -27,6 +27,8 @@ public abstract class Voucher {
 
     private double discount;
 
+    private double lowerbound;
+
     private boolean isDelete;
 
     @OneToOne(mappedBy = "voucher", cascade = CascadeType.MERGE)

@@ -29,8 +29,21 @@ public class Product {
     @Column(name = "isDelete", columnDefinition = "BIT")
     private boolean isDelete;
 
+    @Column(name = "quantity")
+    private int quantity;
+
+    @Column(name = "price")
+    private double price;
+
+    @Column(name = "weight")
+    private double weight;
+
+
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<ProductType> productTypes;
+    private List<CartItem> cartItems;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<OrderItem> orderItems;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<ProductImage> productImages;
@@ -39,6 +52,4 @@ public class Product {
     @JoinColumn(name = "categoryId", referencedColumnName = "categoryId")
     private Category category;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Wishlist> wishlists;
 }

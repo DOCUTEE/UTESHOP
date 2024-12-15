@@ -9,8 +9,6 @@ import java.util.List;
 @PrimaryKeyJoinColumn(name = "customerId")
 
 public class Customer extends User{
-    @OneToMany(mappedBy = "customer")
-    private List<Question> questions;
 
     public static void main(String[] args) {
 
