@@ -52,7 +52,7 @@ public class Order {
     private double actualCost;
 
     @ManyToOne
-    @JoinColumn(name = "customerId", referencedColumnName = "userId", nullable = false)
+    @JoinColumn(name = "customerId", referencedColumnName = "customerId", nullable = false)
     private Customer customer;
 
     @ManyToOne

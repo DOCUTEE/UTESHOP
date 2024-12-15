@@ -48,11 +48,6 @@ public class OrderItemDAOImpl implements IOrderItemDAO {
         return orderItems.size();
     }
     public static void main(String[] args) {
-        OrderItemDAOImpl orderItemDAO = new OrderItemDAOImpl();
-        OrderItem orderItem = new OrderItem();
-        Order order = new Order();
-        order.setOrderId(1);
-        orderItem.setOrder(order);
-        orderItemDAO.insert(orderItem);
+        EntityManager em = JPAConfig.getEntityManager();
     }
 }
