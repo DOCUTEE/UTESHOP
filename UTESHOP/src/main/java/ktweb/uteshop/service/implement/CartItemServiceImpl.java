@@ -16,6 +16,12 @@ public class CartItemServiceImpl implements ICartItemService {
 
         @Override
         public void insert(CartItem cartItem) {
+                if (cartItemDAO.findByProductId(cartItem.getProduct().getProductId()) != null) {
+                        CartItem cartItem1 = cartItemDAO.findByProductId(cartItem.getProduct().getProductId());
+                        cartItem1.setQuantity(cartItem1.getQuantity() + cartItem.getQuantity());
+                        cartItemDAO.update(cartItem1);
+                        return;
+                };
                 cartItemDAO.insert(cartItem);
         }
 

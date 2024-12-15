@@ -9,4 +9,6 @@ public interface ICartItemDAO {
         public void insert(CartItem cartItem);
         public void update(CartItem cartItem);
         public void deleteById(int id);
+
+        CartItem findByProductId(int productId);
 }
