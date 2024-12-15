@@ -13,16 +13,15 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "Customer")
+@Table(name = "customer")
 @NamedQuery(name = "Customer.findAll", query = "SELECT e FROM Customer e where e.isDelete = false")
-@PrimaryKeyJoinColumn(name = "CustomerId")
 
-public abstract class Customer implements Serializable {
+public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CustomerId")
-    private int CustomerId;
+    @Column(name = "customerId")
+    private int customerId;
 
     @Column(name = "name", length = 100, unique = true)
     private String name;
@@ -47,5 +46,8 @@ public abstract class Customer implements Serializable {
 
     @Column(name = "isDelete", columnDefinition = "BIT")
     private Boolean isDelete;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Order> orders;
 }
 

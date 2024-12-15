@@ -9,9 +9,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "order_item")
+@Table(name = "`order_item`")
 public class OrderItem {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "orderItemId")
+    private int orderItemId;
+
     @ManyToOne
     @JoinColumn(name = "orderId", referencedColumnName = "orderId", nullable = false)
     private Order order;
