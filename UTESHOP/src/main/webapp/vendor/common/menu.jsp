@@ -67,36 +67,25 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1">
-        <!-- Dashboard -->
+        <!-- Products -->
+        <li class="menu-header small text-uppercase">
+            <span class="menu-header-text">Products</span>
+        </li>
         <li class="menu-item">
-            <a href="index.html" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Dashboard</div>
+            <a href="/products/list" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-box"></i>
+                <div data-i18n="Products">Product List</div>
             </a>
         </li>
 
+        <!-- Order -->
         <li class="menu-header small text-uppercase">
             <span class="menu-header-text">Order</span>
         </li>
         <li class="menu-item">
-            <a href="/vendor/order-list" class="menu-link">
+            <a href="/orders/list" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-cart"></i>
-                <div data-i18n="Analytics">Confirm the order</div>
-            </a>
-        </li>
-        <li class="menu-header small text-uppercase"><span class="menu-header-text">Response</span></li>
-        <li class="menu-item">
-            <a href="/vendor/res" class="menu-link">
-                <i class='menu-icon tf-icons bx bx-bell' ></i>
-                <div data-i18n="Basic">Response Customer</div>
-            </a>
-        </li>
-        <li class="menu-header small text-uppercase"><span class="menu-header-text">Blog</span></li>
-        <li class="menu-item">
-            <a href="/vendor/blog" class="menu-link">
-<%--                <i class="menu-icon tf-icons bx bx-detail"></i>--%>
-                <i class='menu-icon tf-icons bx bxl-blogger' ></i>
-                <div data-i18n="Basic">Blog</div>
+                <div data-i18n="Orders">Order List</div>
             </a>
         </li>
     </ul>
