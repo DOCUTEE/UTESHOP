@@ -13,9 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "vendor")
+@Table(name = "Vendor")
 @NamedQuery(name = "Vendor.findAll", query = "SELECT e FROM Vendor e where e.isDelete = false")
-@PrimaryKeyJoinColumn(name = "vendorId")
 
 public abstract class Vendor implements Serializable {
     private static final long serialVersionUID = 1L;

@@ -14,7 +14,6 @@ import java.util.List;
 @Entity
 @Table(name = "Administrator")
 @NamedQuery(name = "Administrator.findAll", query = "SELECT e FROM Administrator e where e.isDelete = false")
-@PrimaryKeyJoinColumn(name = "AdministratorId")
 
 public abstract class Administrator implements Serializable {
     private static final long serialVersionUID = 1L;

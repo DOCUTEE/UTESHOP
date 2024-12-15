@@ -15,7 +15,6 @@ import java.util.List;
 @Entity
 @Table(name = "Customer")
 @NamedQuery(name = "Customer.findAll", query = "SELECT e FROM Customer e where e.isDelete = false")
-@PrimaryKeyJoinColumn(name = "CustomerId")
 
 public abstract class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
