@@ -70,4 +70,21 @@ public class CartItemDAOImpl implements ICartItemDAO {
                         throw ex;
                 }
         }
+
+        @Override
+        public CartItem findByProductId(int productId) {
+                EntityManager em = JPAConfig.getEntityManager();
+                EntityTransaction trans = em.getTransaction();
+                try {
+                        trans.begin();
+                        String sql = "SELECT item FROM CartItem item WHERE item.product.id = :id";
+                        CartItem result = em.createQuery(sql, CartItem.class).setParameter("id", productId).getSingleResult();
+                        trans.commit();
+                        return result;
+                }
+                catch (Exception ex) {
+                        trans.rollback();
+                        throw ex;
+                }
+        }
 }
