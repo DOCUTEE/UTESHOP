@@ -2,21 +2,21 @@ package ktweb.uteshop.DAO.implement;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
-import ktweb.uteshop.DAO.interfaces.IOrderDAO;
+import ktweb.uteshop.DAO.interfaces.IMarketingCampaignDAO;
 import ktweb.uteshop.configs.JPAConfig;
-import ktweb.uteshop.entity.Order;
+import ktweb.uteshop.entity.MarketingCampaign;
 
 import java.util.List;
 
-public class IOrderDAOImpl implements IOrderDAO {
+public class MarketingCampaignDAOImpl implements IMarketingCampaignDAO {
         @Override
-        public List<Order> findAllByPage(int page, int limit) {
+        public List<MarketingCampaign> findAll() {
                 EntityManager em = JPAConfig.getEntityManager();
                 EntityTransaction trans = em.getTransaction();
                 try {
                         trans.begin();
-                        String jsql = "SELECT o FROM Order o";
-                        List<Order> result = em.createQuery(jsql, Order.class).setFirstResult((page - 1) * limit).setMaxResults(limit).getResultList();
+                        String jsql = "SELECT mc FROM MarketingCampaign mc";
+                        List<MarketingCampaign> result = em.createQuery(jsql, MarketingCampaign.class).getResultList();
                         trans.commit();
                         return result;
                 }
@@ -27,13 +27,13 @@ public class IOrderDAOImpl implements IOrderDAO {
         }
 
         @Override
-        public Order findById(int id) {
+        public MarketingCampaign findById(int id) {
                 EntityManager em = JPAConfig.getEntityManager();
                 EntityTransaction trans = em.getTransaction();
                 try {
                         trans.begin();
-                        String jsql = "SELECT o FROM Order o where o.id = :id";
-                        Order result = em.createQuery(jsql, Order.class).setParameter("id", id).getSingleResult();
+                        String jsql = "SELECT mc FROM MarketingCampaign mc where mc.id = :id";
+                        MarketingCampaign result = em.createQuery(jsql, MarketingCampaign.class).getSingleResult();
                         trans.commit();
                         return result;
                 }
@@ -44,12 +44,12 @@ public class IOrderDAOImpl implements IOrderDAO {
         }
 
         @Override
-        public void insert(Order order) {
+        public void insert(MarketingCampaign marketingCampaign) {
                 EntityManager em = JPAConfig.getEntityManager();
                 EntityTransaction trans = em.getTransaction();
                 try {
                         trans.begin();
-                        em.persist(order);
+                        em.persist(marketingCampaign);
                         trans.commit();
                 }
                 catch (Exception ex) {
@@ -59,19 +59,18 @@ public class IOrderDAOImpl implements IOrderDAO {
         }
 
         @Override
-        public void update(Order order) {
+        public void update(MarketingCampaign marketingCampaign) {
                 EntityManager em = JPAConfig.getEntityManager();
                 EntityTransaction trans = em.getTransaction();
                 try {
                         trans.begin();
-                        em.merge(order);
+                        em.merge(marketingCampaign);
                         trans.commit();
                 }
                 catch (Exception ex) {
                         trans.rollback();
                         throw ex;
                 }
-
         }
 
         @Override
@@ -80,8 +79,8 @@ public class IOrderDAOImpl implements IOrderDAO {
                 EntityTransaction trans = em.getTransaction();
                 try {
                         trans.begin();
-                        Order order = em.find(Order.class, id);
-                        em.remove(order);
+                        MarketingCampaign marketingCampaign = em.find(MarketingCampaign.class, id);
+                        em.remove(marketingCampaign);
                         trans.commit();
                 }
                 catch (Exception ex) {

@@ -23,7 +23,7 @@ public class CategoryDAOImpl implements ICategoryDAO {
         }
 
         @Override
-        public void update(int id, Category category) {
+        public void update(Category category) {
                 EntityManager em = JPAConfig.getEntityManager();
                 EntityTransaction trans = em.getTransaction();
                 try {

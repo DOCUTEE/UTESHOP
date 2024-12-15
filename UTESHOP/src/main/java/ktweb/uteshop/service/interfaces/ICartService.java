@@ -1,9 +1,8 @@
-package ktweb.uteshop.DAO.interfaces;
+package ktweb.uteshop.service.interfaces;
 
 import ktweb.uteshop.entity.Cart;
 
-public interface ICartDAO {
+public interface ICartService {
         public Cart findByUserId(int id);
         void insert(Cart cart);
-
 }
