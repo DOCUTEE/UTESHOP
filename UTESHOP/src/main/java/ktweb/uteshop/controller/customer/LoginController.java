@@ -46,7 +46,7 @@ public class LoginController extends HttpServlet {
                 if (customerService.login(email, password)) {
                         HttpSession session = request.getSession();
                         session.setAttribute("customer", customerService.findByEmail(email));
-                        response.sendRedirect(request.getContextPath() + "/customer/home");
+                        response.sendRedirect(request.getContextPath() + "/home");
                 } else {
                         request.setAttribute("error", "Email or password is incorrect.");
                         request.getRequestDispatcher("/customer/views/login.jsp").forward(request, response);

@@ -47,21 +47,24 @@
     <div class="row">
         <c:forEach var="product" items="${productList}" end="9">
             <div class="col-md-3 mb-4">
-                <div class="card">
-                    <img src="${product.productImages[0].productImage}" class="card-img-top" alt="${product.name}">
-                    <div class="card-body">
-                        <h5 class="card-title">${product.name}</h5>
-                        <p class="card-text">${product.descript}</p>
-                        <p class="card-text"><strong>Giá: </strong>${product.price} VND</p>
-                    </div>
+                <div class="card h-100">
+                    <a href="${pageContext.request.contextPath}/product-detail?productId=${product.productId}">
+                        <img src="${product.productImages[0].productImage}" class="card-img-top" alt="${product.name}">
+                        <div class="card-body">
+                            <h5 class="card-title">${product.name}</h5>
+                            <p class="card-text">${product.descript}</p>
+                            <p class="card-text"><strong>Giá: </strong>${product.price} VND</p>
+                        </div>
+                    </a>
                 </div>
             </div>
         </c:forEach>
     </div>
     <div class="text-center">
-        <a href="${pageContext.request.contextPath}/products/search" class="btn btn-primary">Xem tất cả</a>
+        <a href="${pageContext.request.contextPath}/search" class="btn btn-primary">Xem tất cả</a>
     </div>
 </div>
+
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>

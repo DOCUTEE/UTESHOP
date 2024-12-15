@@ -19,14 +19,9 @@ public class SearchController extends HttpServlet {
         @Override
         public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
                 try {
-                        if (request.getParameter("keyword") == null) {
-                                response.sendRedirect(request.getContextPath() + "/home");
-                                return;
-                        }
-                        String keyword = request.getParameter("keyword");
-                        if (keyword == null) {
-                                response.sendRedirect(request.getContextPath() + "/home");
-                                return;
+                        String keyword = "";
+                        if (request.getParameter("keyword") != null) {
+                                keyword = request.getParameter("keyword");
                         }
                         Integer page = 1;
                         if (request.getParameter("page") != null) {
