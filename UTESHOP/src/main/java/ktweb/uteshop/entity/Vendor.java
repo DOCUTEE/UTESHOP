@@ -16,7 +16,7 @@ import java.util.List;
 @Table(name = "Vendor")
 @NamedQuery(name = "Vendor.findAll", query = "SELECT e FROM Vendor e where e.isDelete = false")
 
-public abstract class Vendor implements Serializable {
+public class Vendor implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

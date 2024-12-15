@@ -15,7 +15,7 @@ import java.util.List;
 @Table(name = "Administrator")
 @NamedQuery(name = "Administrator.findAll", query = "SELECT e FROM Administrator e where e.isDelete = false")
 
-public abstract class Administrator implements Serializable {
+public class Administrator implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
