@@ -46,9 +46,9 @@
         <p><strong>Category:</strong> ${product.category.categoryName}</p>
         <p><strong>Vendor:</strong> ${product.vendor.name}</p>
 
-        <p class="text-success"><strong>Price:</strong> $<c:out value="${product.price}"/></p>
+        <p class="text-success"><strong>Price:</strong> <c:out value="${product.price}"/> VND</p>
         <p><strong>Quantity:</strong> <c:out value="${product.quantity}"/> available</p>
-        <p><strong>Weight:</strong> <c:out value="${product.weight}"/> kg</p>
+        <p><strong>Weight:</strong> <c:out value="${product.weight}"/> g</p>
 
         <p><strong>Description:</strong></p>
         <p><c:out value="${product.descript}"/></p>

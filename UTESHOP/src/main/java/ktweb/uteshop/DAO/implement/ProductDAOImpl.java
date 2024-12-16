@@ -53,7 +53,7 @@ public class ProductDAOImpl implements IProductDAO {
     }
     public List<Product> findByKeyword(String keyword) {
         EntityManager em = JPAConfig.getEntityManager();
-        List<Product> products = em.createQuery("SELECT p FROM Product p WHERE p.productName LIKE :keyword", Product.class)
+        List<Product> products = em.createQuery("SELECT p FROM Product p WHERE p.name LIKE :keyword", Product.class)
                 .setParameter("keyword", "%" + keyword + "%")
                 .getResultList();
         em.close();
@@ -76,6 +76,19 @@ public class ProductDAOImpl implements IProductDAO {
     @Override
     public List<Product> findByVendorId(int vendorId) {
         return List.of();
+    }
+
+
+    @Override
+    public List<Product> findByVendorIdAndPage(int vendorId, int page, int pageSize) {
+        EntityManager em = JPAConfig.getEntityManager();
+        List<Product> products = em.createQuery("SELECT p FROM Product p WHERE p.vendor.vendorId = :vendorId", Product.class)
+                .setParameter("vendorId", vendorId)
+                .setFirstResult((page - 1) * pageSize)
+                .setMaxResults(pageSize)
+                .getResultList();
+        em.close();
+        return products;
     }
 
 

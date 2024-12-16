@@ -30,7 +30,7 @@ public class SearchController extends HttpServlet {
 
                         List<Product> productList = productService.findByKeywordAndPage(keyword, page, PRODUCT_BY_PAGE);
                         request.setAttribute("page", page);
-                        request.setAttribute("keyword", keyword);
+                        request.getSession().setAttribute("keyword", keyword);
                         request.setAttribute("productList", productList);
                         request.getRequestDispatcher("/customer/views/search.jsp").forward(request, response);
                 }

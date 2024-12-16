@@ -33,8 +33,8 @@
                         <div>${cartItem.product.name}</div>
                     </td>
                     <td>${cartItem.quantity}</td>
-                    <td>$<c:out value="${cartItem.product.price}"/></td>
-                    <td>$<c:out value="${cartItem.price}"/></td>
+                    <td><c:out value="${cartItem.product.price}"/>VND</td>
+                    <td><c:out value="${cartItem.price}"/>VND</td>
                     <td>
                         <form action="${pageContext.request.contextPath}/remove-from-cart" method="post" class="d-inline">
                             <input type="hidden" name="cartItemId" value="${cartItem.cartItemId}">
