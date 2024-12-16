@@ -13,16 +13,27 @@ import ktweb.uteshop.service.interfaces.IProductService;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "VendorHomeController", value = "/VendorHomeController")
+@WebServlet(name = "VendorHomeController", value = "/vendor/home")
 public class VendorHomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        if (request.getSession().getAttribute("vendor") == null) {
-//            response.sendRedirect(request.getContextPath() + "/vendor/login");
-//            return;
-//        }
+        if (request.getSession().getAttribute("vendor") == null) {
+            response.sendRedirect(request.getContextPath() + "/vendor/login");
+            return;
+        }
+        int page = 1;
+        int pageSize = 10;
+        if (request.getParameter("page") != null) {
+            page = Integer.parseInt(request.getParameter("page"));
+        }
         IProductService productService = new ProductServiceImpl();
         Vendor vendor = (Vendor)request.getSession().getAttribute("vendor");
+        List<Product> products = productService.findByVendorIdAndPage(vendor.getVendorId(), page, pageSize);
+        for (Product product : products) {
+            System.out.println(product.getName());
+        }
+
+        request.setAttribute("products", products);
         request.getRequestDispatcher("/vendor/views/home.jsp").forward(request, response);
     }
 

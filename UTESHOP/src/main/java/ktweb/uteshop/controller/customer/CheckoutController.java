@@ -52,8 +52,9 @@ public class CheckoutController extends HttpServlet {
 
                         Order order = new Order();
                         order.setCustomer(customer);
-                        order.setDistrict(request.getParameter("district"));
+
                         order.setCityOfProvince(request.getParameter("cityOfProvince"));
+                        order.setDistrict(request.getParameter("district"));
                         order.setWard(request.getParameter("ward"));
                         order.setPhone(request.getParameter("phone"));
                         order.setStreetNumber(request.getParameter("streetNumber"));

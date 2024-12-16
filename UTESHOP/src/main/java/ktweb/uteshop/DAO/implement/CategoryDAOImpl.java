@@ -5,6 +5,7 @@ import jakarta.persistence.EntityTransaction;
 import ktweb.uteshop.DAO.interfaces.ICategoryDAO;
 import ktweb.uteshop.configs.JPAConfig;
 import ktweb.uteshop.entity.Category;
+import java.util.List;
 
 public class CategoryDAOImpl implements ICategoryDAO {
         @Override
@@ -53,6 +54,17 @@ public class CategoryDAOImpl implements ICategoryDAO {
                         trans.rollback();
                         throw ex;
                 }
-
+        }
+        @Override
+        public Category findById(int id) {
+                EntityManager em = JPAConfig.getEntityManager();
+                Category category = em.find(Category.class, id);
+                return category;
+        }
+        @Override
+        public List<Category> findAll() {
+                EntityManager em = JPAConfig.getEntityManager();
+                List<Category> categories = em.createQuery("SELECT c FROM Category c", Category.class).getResultList();
+                return categories;
         }
 }

@@ -21,8 +21,8 @@
                     <div class="card-body">
                         <h5 class="card-title"><c:out value="${product.name}"/></h5>
                         <p class="card-text"><c:out value="${product.descript}"/></p>
-                        <p class="card-text text-muted">Price: $<c:out value="${product.price}"/></p>
-                        <p class="card-text text-muted">Weight: <c:out value="${product.weight}"/> kg</p>
+                        <p class="card-text text-muted">Price: <c:out value="${product.price}"/> VND</p>
+                        <p class="card-text text-muted">Weight: <c:out value="${product.weight}"/> g</p>
                         <a href="${pageContext.request.contextPath}/product-detail?productId=${product.productId}" class="btn btn-primary">View Product</a>
                     </div>
                 </div>

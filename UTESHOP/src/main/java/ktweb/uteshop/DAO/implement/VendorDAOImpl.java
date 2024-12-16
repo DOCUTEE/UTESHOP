@@ -95,6 +95,16 @@ public class VendorDAOImpl implements IVendorDAO {
         entityManager.close();
         return vendors;
     }
+
+    @Override
+    public Vendor findByEmail(String email) {
+        EntityManager entityManager = JPAConfig.getEntityManager();
+        Vendor vendor = entityManager.createQuery("SELECT v FROM Vendor v WHERE v.email = :email", Vendor.class)
+                .setParameter("email", email)
+                .getSingleResult();
+        entityManager.close();
+        return vendor;
+    }
     public static void main(String[] args) {
 
     }
