@@ -30,7 +30,6 @@ public class MarketingCampaign implements Serializable {
     @Column(name = "is_delete", nullable = false)
     private Boolean isDelete = false;
 
-    @OneToMany(mappedBy = "marketingCampaign", cascade = CascadeType.ALL)
-    private List<CampaignImage> campaignImages;
+    private String campaignImage;
 
 }

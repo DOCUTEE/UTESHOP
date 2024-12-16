@@ -24,8 +24,8 @@ public class CartItem {
     private Cart cart;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "typeId", referencedColumnName = "typeId")
-    private ProductType productType;
+	@JoinColumn(name = "productId", referencedColumnName = "productId")
+    private Product product;
 
     @Column(name = "quantity", nullable = false)
     private int quantity;

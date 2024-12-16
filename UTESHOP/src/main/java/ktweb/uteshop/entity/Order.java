@@ -12,9 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "orders")
+@Table(name = "`order`")
 public class Order {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "orderId")
@@ -45,15 +44,14 @@ public class Order {
     @Column(name = "totalCost", nullable = false)
     private double totalCost;
 
-    @Column(name = "discount", nullable = false)
+    @Column(name = "discount", nullable = false, columnDefinition = "DECIMAL(5,2)")
     private double discount;
-
-    @Column(name = "actualCost", nullable = false)
+    @Column(name = "actualCost", nullable = false, columnDefinition = "DECIMAL(5,2)")
     private double actualCost;
 
     @ManyToOne
-    @JoinColumn(name = "customerId", referencedColumnName = "userId", nullable = false)
-    private User customer;
+    @JoinColumn(name = "customerId", referencedColumnName = "customerId", nullable = false)
+    private Customer customer;
 
     @ManyToOne
     @JoinColumn(name = "voucherId", referencedColumnName = "voucherId")
@@ -69,13 +67,8 @@ public class Order {
 				+ ", phone=" + phone + ", totalCost=" + totalCost + ", discount=" + discount + ", actualCost="
 				+ actualCost + ", customer=" + customer + "]";
 	}
-    
 
     public static void main(String[] args) {
 
     }
-
-
-
-
 }

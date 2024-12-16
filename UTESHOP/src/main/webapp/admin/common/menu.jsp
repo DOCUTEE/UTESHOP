@@ -1,115 +1,95 @@
-<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
-    <div class="app-brand demo">
-        <a href="employee" class="app-brand-link">
-            <img src="${pageContext.request.contextPath}/CommonImage/Logo.jpg" alt="logo" class="img-fluid" style="width: 100px; height: auto;">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Sidebar</title>
+    <!-- Add Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/boxicons/2.0.7/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+<aside id="layout-menu" class="col-md-2 bg-light sidebar py-3">
+    <div class="main-logo text-center">
+        <a href="${pageContext.request.contextPath}/home">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU3Iu-JCuCrcWVV-wSXqYJlQygBoPPONNPhA&s"
+                 alt="logo" class="img-fluid" width="100" height="100">
         </a>
     </div>
-
-    <div class="menu-inner-shadow"></div>
-
-    <ul class="menu-inner py-1">
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Employees</span>
-        </li>
-        <li class="menu-item active">
-            <a href="employee" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-user"></i>
-                <div data-i18n="Analytics">Employees</div>
-            </a>
-        </li>
-
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Customers</span>
-        </li>
-        <li class="menu-item active">
-            <a href="customer" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-group"></i>
-                <div data-i18n="Analytics">Customers</div>
-            </a>
-        </li>
-
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Marketing Campaigns</span>
-        </li>
-        <li class="menu-item active">
-            <a href="marketing" class="menu-link">
-                <i class="menu-icon tf-icons bx bxs-megaphone"></i>
-                <div data-i18n="Analytics">Marketing Campaigns</div>
-            </a>
-        </li>
-
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Payment Account</span>
-        </li>
-        <li class="menu-item active">
-            <a href="paymentaccount" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-wallet"></i>
-                <div data-i18n="Analytics">Payment Account</div>
-            </a>
-        </li>
-
-
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Orders</span>
-        </li>
-        <li class="menu-item active">
-            <a href="order" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-cart"></i>
-                <div data-i18n="Analytics">Orders</div>
-            </a>
-        </li>
-
-
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Products</span>
-        </li>
-        <li class="menu-item active">
-            <a href="product" class="menu-link">
+    <ul class="nav flex-column list-unstyled">
+        <!-- Admin-specific items -->
+        <li class="nav-item">
+            <a href="${pageContext.request.contextPath}/admin/product" class="nav-link">
                 <i class="menu-icon tf-icons bx bx-box"></i>
-                <div data-i18n="Analytics">Products</div>
+                <span>Manage Products</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="${pageContext.request.contextPath}/admin/orders" class="nav-link">
+                <i class="menu-icon tf-icons bx bx-cart"></i>
+                <span>Manage Orders</span>
             </a>
         </li>
 
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Blogs</span>
-        </li>
-        <li class="menu-item active">
-            <a href="blog" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-pencil"></i>
-                <div data-i18n="Analytics">Blogs</div>
+        <!-- Manage Vendors -->
+        <li class="nav-item">
+            <a href="${pageContext.request.contextPath}/admin/vendors" class="nav-link">
+                <i class="menu-icon tf-icons bx bx-building"></i>
+                <span>Manage Vendors</span>
             </a>
         </li>
 
-
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Statistics</span>
-        </li>
-        <li class="menu-item active">
-            <a href="statistic" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-line-chart"></i>
-                <div data-i18n="Analytics">Statistics</div>
-            </a>
-        </li>
-<%--        show admin name from sessionScope--%>
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">${sessionScope.admin.name}</span>
-        </li>
-        <li class="menu-item active">
-            <a href="admin" class="menu-link">
+        <!-- Manage Users -->
+        <li class="nav-item">
+            <a href="${pageContext.request.contextPath}/admin/users" class="nav-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
-                <div data-i18n="Analytics">Admin</div>
+                <span>Manage Users</span>
             </a>
         </li>
 
-<%--        logout--%>
-        <li class="menu-header small text-uppercase">
-            <span class="menu-header-text">Logout</span>
+        <!-- Reports -->
+        <li class="nav-item">
+            <a href="${pageContext.request.contextPath}/admin/reports" class="nav-link">
+                <i class="menu-icon tf-icons bx bx-line-chart"></i>
+                <span>View Reports</span>
+            </a>
         </li>
-        <li class="menu-item active">
-            <a href="logout" class="menu-link">
+
+        <!-- Settings -->
+        <li class="nav-item">
+            <a href="${pageContext.request.contextPath}/admin/settings" class="nav-link">
+                <i class="menu-icon tf-icons bx bx-cog"></i>
+                <span>Settings</span>
+            </a>
+        </li>
+
+        <!-- Logout Button -->
+        <li class="nav-item">
+            <a href="${pageContext.request.contextPath}/admin/logout" class="nav-link">
                 <i class="menu-icon tf-icons bx bx-log-out"></i>
-                <div data-i18n="Analytics">Logout</div>
+                <span>Logout</span>
             </a>
         </li>
     </ul>
 </aside>
+
+<!-- Add Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Highlight active menu item
+        const menuItems = document.querySelectorAll('.nav-item');
+        const currentUrl = window.location.pathname;
+        menuItems.forEach(function (item) {
+            const link = item.querySelector('a');
+            if (link && currentUrl.startsWith(link.getAttribute('href'))) {
+                item.classList.add('active');
+            }
+        });
+    });
+</script>
+</body>
+</html>

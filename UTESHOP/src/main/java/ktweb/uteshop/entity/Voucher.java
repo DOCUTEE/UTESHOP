@@ -14,7 +14,7 @@ import java.util.Date;
 @Table(name = "voucher")
 @NamedQuery(name="Voucher.findAll", query="select c from Voucher c")
 @Inheritance(strategy = InheritanceType.JOINED)
-public abstract class Voucher {
+public class Voucher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int voucherId;
@@ -26,6 +26,8 @@ public abstract class Voucher {
     private String code;
 
     private double discount;
+
+    private double lowerbound;
 
     private boolean isDelete;
 

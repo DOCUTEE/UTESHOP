@@ -1,0 +1,18 @@
+package ktweb.uteshop.controller.customer;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
+
+@WebServlet(name = "ErrorController", value = "/customer/error")
+public class ErrorController extends HttpServlet {
+        @Override
+        public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+                request.getRequestDispatcher("/customer/views/error.jsp").forward(request, response);
+        }
+
+}

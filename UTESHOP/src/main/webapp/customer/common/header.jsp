@@ -98,21 +98,14 @@
 			<h4 class="d-flex justify-content-between align-items-center mb-3">
 				<span class="text-primary">Search</span>
 			</h4>
-			<form role="search" action="${pageContext.request.contextPath}/products/search" method="get"
+			<form role="search" action="${pageContext.request.contextPath}/search" method="get"
 				  class="d-flex mt-3 gap-0">
-				<input type="hidden" name="categoryName" value="${sessionScope.categoryName}"/>
-				<input type="hidden" name="minPrice" value="${sessionScope.minPrice}"/>
-				<input type="hidden" name="maxPrice" value="${sessionScope.maxPrice}"/>
-				<input type="hidden" name="pageSize" value="${sessionScope.pageSize}"/>
 				<input type="hidden" name="keyword" value="${sessionScope.keyword}"/>
-				<input type="hidden" name="pageSize" value="${sessionScope.pageSize}"/>
-				<input type="hidden" name="page" value ="${sessionScope.currentPage}"/>
 				<input class="form-control rounded-start rounded-0 bg-light"
 					   type="email" placeholder="What are you looking for?"
 					   aria-label="What are you looking for?">
 				<button class="btn btn-dark rounded-end rounded-0" type="submit">Search</button>
 			</form>
-
 		</div>
 	</div>
 </div>
@@ -122,8 +115,8 @@
 
 			<div class="col-sm-4 col-lg-3 text-center text-sm-start">
 				<div class="main-logo">
-					<a href="${pageContext.request.contextPath}/customer/home">
-						<img src="${pageContext.request.contextPath}/CommonImage/Logo.jpg"
+					<a href="${pageContext.request.contextPath}/home">
+						<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU3Iu-JCuCrcWVV-wSXqYJlQygBoPPONNPhA&s"
 							 alt="logo" class="img-fluid" width="100" height="100">
 					</a>
 
@@ -145,7 +138,7 @@
 					</div>
 					<!-- Search Form -->
 					<div class="col-11 col-md-7">
-						<form id="search-form" class="text-center d-flex align-items-center" action="${pageContext.request.contextPath}/products/search" method="get">
+						<form id="search-form" class="text-center d-flex align-items-center" action="${pageContext.request.contextPath}/search" method="get">
 							<input type="text" class="form-control border-0 bg-transparent" name="keyword" placeholder="Search for products..." value="${sessionScope.keyword != null ? sessionScope.keyword : ''}" />
 							<input type="hidden" name="categoryName" value="${sessionScope.categoryName != null ? sessionScope.categoryName : ''}" />
 							<button type="submit" class="btn btn-transparent p-0 ms-2">
@@ -157,12 +150,11 @@
 					</div>
 
 				</div>
-
 			</div>
 			<div class="col-sm-8 col-lg-4 d-flex justify-content-end gap-5 align-items-center mt-4 mt-sm-0 justify-content-center justify-content-sm-end">
 				<ul class="d-flex justify-content-end list-unstyled m-0">
 					<li>
-						<a href="${pageContext.request.contextPath}/customer/info" class="rounded-circle bg-light p-2 mx-1">
+						<a href="${pageContext.request.contextPath}/customer/profile" class="rounded-circle bg-light p-2 mx-1">
 							<svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#user"></use></svg>
 						</a>
 					</li>
@@ -185,8 +177,15 @@
 				</ul>
 
 				<div class="cart text-end d-none d-lg-block dropdown">
-					<a href="${pageContext.request.contextPath}/customer/cart">Cart</a>
+					<a href="${pageContext.request.contextPath}/cart">Cart</a>
 				</div>
+				<c:if test="${empty sessionScope.customer}">
+					<a href="${pageContext.request.contextPath}/customer/login" class="btn btn-primary">Login</a>
+					<a href="${pageContext.request.contextPath}/customer/register" class="btn btn-primary">Register</a>
+				</c:if>
+				<c:if test="${not empty sessionScope.customer}">
+					<a href="${pageContext.request.contextPath}/customer/logout" class="btn btn-dark">Logout</a>
+				</c:if>
 			</div>
 			<script>
 				// Hàm này sẽ tự động gửi request khi người dùng chọn một category từ dropdown
