@@ -10,4 +10,5 @@ public interface IOrderDAO {
         public void insert(Order order);
         public void update(Order order);
         public void deleteById(int id);
+        public List<Order> findByVendorId(int vendorId, int page, int size);
 }

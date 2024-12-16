@@ -1,5 +1,6 @@
 package ktweb.uteshop.DAO.implement;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import ktweb.uteshop.DAO.interfaces.ICustomerDAO;
@@ -89,6 +90,23 @@ public class CustomerDAOImpl implements ICustomerDAO {
         }
 
         @Override
+        public List<Customer> findByKeywordAndPage(String keyword, int page, int limit) {
+                EntityManager em = JPAConfig.getEntityManager();
+                EntityTransaction transaction = em.getTransaction();
+                try {
+                        transaction.begin();
+                        String jsql = "SELECT c FROM Customer c WHERE c.name LIKE :keyword and c.isDelete != true";
+                        List<Customer> result = em.createQuery(jsql, Customer.class).setParameter("keyword", "%" + keyword + "%").setFirstResult((page - 1) * limit).setMaxResults(limit).getResultList();
+                        transaction.commit();
+                        return result;
+                }
+                catch (Exception ex) {
+                        transaction.rollback();
+                        throw ex;
+                }
+        }
+
+        @Override
         public Customer findByEmail(String email) {
                 EntityManager em = JPAConfig.getEntityManager();
                 EntityTransaction trans = em.getTransaction();
@@ -104,4 +122,5 @@ public class CustomerDAOImpl implements ICustomerDAO {
                         throw ex;
                 }
         }
+
 }

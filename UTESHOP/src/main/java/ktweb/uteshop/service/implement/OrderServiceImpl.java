@@ -77,4 +77,8 @@ public class OrderServiceImpl implements IOrderService {
                 orderDAO.deleteById(id);
 
         }
+        @Override
+        public List<Order> findByVendorId(int vendorId, int page, int size) {
+                return orderDAO.findByVendorId(vendorId, page, size);
+        }
 }

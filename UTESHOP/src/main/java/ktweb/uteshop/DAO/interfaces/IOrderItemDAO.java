@@ -8,4 +8,5 @@ public interface IOrderItemDAO {
     void update(OrderItem orderItem);
     void delete(int orderItemId);
     OrderItem findById(int orderItemId);
+    List<OrderItem> findOrderItemsOfVendor(int vendorId, int page, int size);
 }

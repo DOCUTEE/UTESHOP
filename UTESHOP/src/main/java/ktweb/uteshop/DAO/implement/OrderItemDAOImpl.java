@@ -46,6 +46,16 @@ public class OrderItemDAOImpl implements IOrderItemDAO {
         return orderItem;
     }
 
+    public List<OrderItem> findOrderItemsOfVendor(int vendorId, int page, int size) {
+        EntityManager em = JPAConfig.getEntityManager();
+        List<OrderItem> orderItems = em.createQuery("SELECT oi FROM OrderItem oi WHERE oi.product.vendor.id = :vendorId", OrderItem.class)
+                .setParameter("vendorId", vendorId)
+                .setFirstResult((page - 1) * size)
+                .setMaxResults(size)
+                .getResultList();
+        em.close();
+        return orderItems;
+    }
 
     public static void main(String[] args) {
 

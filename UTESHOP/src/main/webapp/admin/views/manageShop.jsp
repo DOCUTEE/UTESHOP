@@ -1,106 +1,85 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.List" %>
-<%@ page import="ktweb.uteshop.entity.Vendor" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Manage Vendors</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        .vendor-link {
-            cursor: pointer;
-            color: blue;
-            text-decoration: underline;
-        }
-    </style>
-    <script>
-        function selectVendor(vendorId) {
-            alert("Vendor ID: " + vendorId);
-        }
-    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Shops</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header text-center bg-light py-3">
-            <h1>Manage Vendors</h1>
-        </div>
+<div class="container my-5">
+    <h1 class="mb-4">Manage Shops</h1>
 
-        <div class="content my-4">
-            <form action="${pageContext.request.contextPath}/admin/shop" method="get" class="search-form form-inline mb-3">
-                <label for="keyword" class="mr-2">Search:</label>
-                <input type="text" id="keyword" name="keyword" class="form-control mr-2" value="<%= request.getParameter("keyword") %>" />
-                <button type="submit" class="btn btn-primary">Search</button>
-            </form>
+    <!-- Search Bar -->
+    <form class="d-flex mb-4">
+        <input class="form-control me-2" type="search" name="keyword" placeholder="Search by keyword" aria-label="Search" value="${param.keyword}">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
 
-            <%
-                List<Vendor> vendorList = (List<Vendor>) request.getAttribute("vendorList");
-                Integer currentPage = (Integer) request.getAttribute("currentPage");
-                Integer totalPages = (Integer) request.getAttribute("totalPages");
-                if (vendorList != null && !vendorList.isEmpty()) {
-                    %>
-                    <table class="table table-bordered table-hover">
-                        <thead class="thead-light">
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Address</th>
-                                <th>Select</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <%
-                        for (Vendor vendor : vendorList) {
-                            %>
-                            <tr>
-                                <td><%= vendor.getName() %></td>
-                                <td><%= vendor.getEmail() %></td>
-                                <td><%= vendor.getPhone() %></td>
-                                <td><%= vendor.getAddress() %></td>
-                                <td><a class="vendor-link" href="javascript:void(0);" onclick="selectVendor(<%= vendor.getVendorId() %>)">Select</a></td>
-                            </tr>
-                            <%
-                        }
-                        %>
-                        <tr>
-                            <td colspan="5" class="pagination text-center">
-                                Page: <%= currentPage %> of <%= totalPages %>
-                                <%
-                                if (currentPage != null && totalPages != null) {
-                                    for (int i = 1; i <= totalPages; i++) {
-                                        if (i == currentPage) {
-                                            %>
-                                            <span class="badge badge-primary"><%= i %></span>
-                                            <%
-                                        } else {
-                                            %>
-                                            <a href="${pageContext.request.contextPath}/admin/shop?keyword=<%= request.getParameter("keyword") %>&page=<%= i %>" class="badge badge-light"><%= i %></a>
-                                            <%
-                                        }
-                                    }
-                                }
-                                %>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <%
-                } else {
-                    %>
-                    <p class="text-danger">No vendors found.</p>
-                    <%
-                }
-            %>
-        </div>
+    <!-- Add Vendor Button -->
+    <a href="${pageContext.request.contextPath}/admin/add-vendor" class="btn btn-success mb-4">Add Vendor</a>
 
-        <div class="footer bg-light text-center py-3">
-            <p>&copy; 2024 Our Shop. All rights reserved.</p>
-        </div>
-    </div>
+    <!-- Check if vendor list exists and is not empty -->
+    <c:if test="${not empty vendorList}">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="vendor" items="${vendorList}">
+                <tr>
+                    <td>${vendor.vendorId}</td>
+                    <td>${vendor.name}</td>
+                    <td>${vendor.email}</td>
+                    <td>${vendor.phone}</td>
+                    <td>${vendor.status}</td>
+                    <td>
+                        <a href="${pageContext.request.contextPath}/admin/edit-vendor?id=${vendor.vendorId}" class="btn btn-primary btn-sm">Edit</a>
+                        <a href="${pageContext.request.contextPath}/admin/delete-vendor?id=${vendor.vendorId}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this vendor?');">Delete</a>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <!-- Pagination -->
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li class="page-item <c:if test='${page <= 1}'>disabled</c:if>'>
+                    <a class="page-link" href="${pageContext.request.contextPath}/admin/shop?keyword=${param.keyword}&page=${page - 1}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                </a>
+                </li>
+                <c:forEach var="i" begin="1" end="${totalPages}">
+                    <li class="page-item <c:if test='${i == page}'>active</c:if>'>
+                        <a class="page-link" href="${pageContext.request.contextPath}/admin/shop?keyword=${param.keyword}&page=${i}">${i}</a>
+                    </li>
+                </c:forEach>
+                <li class="page-item <c:if test='${page >= totalPages}'>disabled</c:if>'>
+                    <a class="page-link" href="${pageContext.request.contextPath}/admin/shop?keyword=${param.keyword}&page=${page + 1}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+                </a>
+                </li>
+            </ul>
+        </nav>
+    </c:if>
+
+    <!-- If vendor list is empty -->
+    <c:if test="${empty vendorList}">
+        <p>No vendors found. <a href="${pageContext.request.contextPath}/admin/shop">Reload</a></p>
+    </c:if>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

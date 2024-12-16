@@ -10,6 +10,6 @@ public interface ICustomerDAO {
         public void insert(Customer customer);
         public void update(Customer customer);
         public void deleteById(int id);
-
+        public List<Customer> findByKeywordAndPage(String keyword, int page, int limit);
         Customer findByEmail(String email);
 }
