@@ -60,7 +60,7 @@
         <tr>
           <th scope="row"><%= index++ %></th>
           <td><%= product.getName() %></td>
-          <td>$<%= product.getPrice() %></td>
+          <td><%= product.getPrice() %> VND</td>
           <td><%= product.getQuantity() %></td>
           <td>
             <a href="<%= request.getContextPath() %>/vendor/product/edit?id=<%= product.getProductId() %>" class="btn btn-warning btn-sm">Edit</a>

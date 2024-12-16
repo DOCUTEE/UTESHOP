@@ -24,12 +24,12 @@ public class ProductDAOImpl implements IProductDAO {
         em.close();
     }
     public void delete(int productId) {
+        //set isDelete = true
         EntityManager em = JPAConfig.getEntityManager();
         em.getTransaction().begin();
         Product product = em.find(Product.class, productId);
-        if (product != null) {
-            em.remove(product);
-        }
+        product.setDelete(true);
+        em.merge(product);
         em.getTransaction().commit();
         em.close();
     }
@@ -47,13 +47,13 @@ public class ProductDAOImpl implements IProductDAO {
     }
     public List<Product> findAll() {
         EntityManager em = JPAConfig.getEntityManager();
-        List<Product> products = em.createQuery("SELECT p FROM Product p", Product.class).getResultList();
+        List<Product> products = em.createQuery("SELECT p FROM Product p WHERE p.isDelete != true", Product.class).getResultList();
         em.close();
         return products;
     }
     public List<Product> findByKeyword(String keyword) {
         EntityManager em = JPAConfig.getEntityManager();
-        List<Product> products = em.createQuery("SELECT p FROM Product p WHERE p.name LIKE :keyword", Product.class)
+        List<Product> products = em.createQuery("SELECT p FROM Product p WHERE p.name LIKE :keyword and p.isDelete != true ", Product.class)
                 .setParameter("keyword", "%" + keyword + "%")
                 .getResultList();
         em.close();
@@ -63,7 +63,7 @@ public class ProductDAOImpl implements IProductDAO {
     @Override
     public List<Product> findByKeywordAndPage(String keyword, int page, int pageSize, int vendorId) {
         EntityManager em = JPAConfig.getEntityManager();
-        List<Product> products = em.createQuery("SELECT p FROM Product p WHERE p.name LIKE :keyword AND p.vendor.vendorId = :vendorId", Product.class)
+        List<Product> products = em.createQuery("SELECT p FROM Product p WHERE p.name LIKE :keyword AND p.vendor.vendorId = :vendorId and p.isDelete != true", Product.class)
                 .setParameter("keyword", "%" + keyword + "%")
                 .setParameter("vendorId", vendorId)
                 .setFirstResult((page - 1) * pageSize)
@@ -82,7 +82,7 @@ public class ProductDAOImpl implements IProductDAO {
     @Override
     public List<Product> findByVendorIdAndPage(int vendorId, int page, int pageSize) {
         EntityManager em = JPAConfig.getEntityManager();
-        List<Product> products = em.createQuery("SELECT p FROM Product p WHERE p.vendor.vendorId = :vendorId", Product.class)
+        List<Product> products = em.createQuery("SELECT p FROM Product p WHERE p.vendor.vendorId = :vendorId and p.isDelete != true ", Product.class)
                 .setParameter("vendorId", vendorId)
                 .setFirstResult((page - 1) * pageSize)
                 .setMaxResults(pageSize)
@@ -98,7 +98,7 @@ public class ProductDAOImpl implements IProductDAO {
         EntityTransaction trans = em.getTransaction();
         try {
             trans.begin();
-            String jsql = "SELECT p FROM Product p WHERE p.name LIKE :keyword";
+            String jsql = "SELECT p FROM Product p WHERE p.name LIKE :keyword and p.isDelete != true";
             List<Product> productList = em.createQuery(jsql, Product.class)
                     .setParameter("keyword", "%" + keyword + "%")
                     .setFirstResult((page - 1) * productByPage)
