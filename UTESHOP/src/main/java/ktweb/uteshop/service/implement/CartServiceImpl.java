@@ -28,4 +28,9 @@ public class CartServiceImpl implements ICartService {
 
                 cartDAO.update(cart);
         }
+
+        @Override
+        public void clearCart(Cart cart) {
+                cartDAO.clearCart(cart);
+        }
 }

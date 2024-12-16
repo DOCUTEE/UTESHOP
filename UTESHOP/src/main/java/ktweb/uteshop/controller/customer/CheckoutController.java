@@ -45,6 +45,7 @@ public class CheckoutController extends HttpServlet {
                                 response.sendRedirect(request.getContextPath() + "/customer/login");
                                 return;
                         }
+
                         Customer customer = ((Customer) session.getAttribute("customer"));
                         Cart cart = cartService.findByCustomerId(customer.getCustomerId());
 
@@ -59,7 +60,12 @@ public class CheckoutController extends HttpServlet {
                         order.setStreetNumber(request.getParameter("streetNumber"));
                         order.setActualCost(0);
                         order.setTotalCost(0);
-                        Voucher voucher = voucherService.findById(Integer.parseInt(request.getParameter("voucherId")));
+
+                        Voucher voucher = null;
+                        String voucherCode = request.getParameter("voucherCode");
+                        if (voucherCode != null) {
+                                voucher = voucherService.findByCode(voucherCode);
+                        }
                         if (voucher != null) order.setDiscount(voucher.getDiscount());
                         else order.setDiscount(0);
                         orderService.checkout(order, cart);
@@ -70,5 +76,18 @@ public class CheckoutController extends HttpServlet {
                         ex.printStackTrace();
                         response.sendRedirect(request.getContextPath() + "/customer/error");
                 }
+        }
+        public static boolean isParsable(String input) {
+                if (input.isEmpty() || input == null) { 
+                        return false;
+                }
+                try {
+                        Integer.parseInt(input);
+                        return true;
+                }
+                catch (Exception ex) {
+                        return false;
+                }
+
         }
 }

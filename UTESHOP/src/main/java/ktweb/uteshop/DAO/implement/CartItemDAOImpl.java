@@ -63,6 +63,7 @@ public class CartItemDAOImpl implements ICartItemDAO {
                 try {
                         trans.begin();
                         CartItem cartItem = em.find(CartItem.class, id);
+                        System.out.println(cartItem.getCartItemId() + " " + cartItem.getProduct().getProductId());
                         em.remove(cartItem);
                         trans.commit();
                 }

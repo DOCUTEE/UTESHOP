@@ -45,10 +45,16 @@ public class VoucherDAOImpl implements IVoucherDAO {
     @Override
     public Voucher findByCode(String code) {
         EntityManager em = JPAConfig.getEntityManager();
-        Voucher voucher = em.createQuery("SELECT v FROM Voucher v WHERE v.code = :code", Voucher.class)
-                .setParameter("code", code)
-                .getSingleResult();
-        em.close();
+        Voucher voucher = null;
+        try {
+            voucher = em.createQuery("SELECT v FROM Voucher v WHERE v.code = :code", Voucher.class)
+                    .setParameter("code", code)
+                    .getSingleResult();
+            em.close();
+        }
+        catch (Exception e) {
+            voucher = null;
+        }
         return voucher;
     }
 

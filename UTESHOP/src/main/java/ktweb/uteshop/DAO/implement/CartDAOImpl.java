@@ -60,6 +60,23 @@ public class CartDAOImpl implements ICartDAO {
         }
 
         @Override
+        public void clearCart(Cart cart) {
+                EntityManager em = JPAConfig.getEntityManager();
+                EntityTransaction trans = em.getTransaction();
+                try {
+                        trans.begin();
+                        String jsql = "DELETE FROM CartItem ci WHERE ci.cart = :cart";
+                        em.createQuery(jsql).setParameter("cart", cart).executeUpdate();
+                        trans.commit();
+                }
+                catch (Exception ex) {
+                        trans.rollback();
+                        throw ex;
+                }
+
+        }
+
+        @Override
         public void update(Cart cart) {
                 EntityManager em = JPAConfig.getEntityManager();
                 EntityTransaction trans = em.getTransaction();
@@ -74,6 +91,7 @@ public class CartDAOImpl implements ICartDAO {
                 }
 
         }
+
 
 }
 
