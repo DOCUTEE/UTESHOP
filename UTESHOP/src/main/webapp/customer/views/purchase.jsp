@@ -52,13 +52,13 @@
                     <%
                     double grandTotal = 0;
                     for (OrderItem orderItem : order.getOrderItems()) {
-                        double total = orderItem.getQuantity() * orderItem.getPrice();
+                        double total = orderItem.getPrice();
                         grandTotal += total;
                         %>
                         <tr>
                             <td><%= orderItem.getProduct().getName() %></td>
                             <td><%= orderItem.getQuantity() %></td>
-                            <td><%= orderItem.getPrice() %></td>
+                            <td><%= orderItem.getProduct().getPrice() %></td>
                             <td><%= total %></td>
                         </tr>
                         <%

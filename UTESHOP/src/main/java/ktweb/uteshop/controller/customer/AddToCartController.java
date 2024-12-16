@@ -36,7 +36,7 @@ public class AddToCartController extends HttpServlet {
                         cartItem.setQuantity(quantity);
                         cartItem.setPrice(cartItem.getProduct().getPrice() * quantity);
                         cartItem.setCart(cart);
-                        cartItemService.insert(cartItem);
+                        cartItemService.insert(cartItem, productId, cart.getCartId());
                         response.sendRedirect(request.getHeader("Referer"));
                 }
                 catch (Exception ex) {

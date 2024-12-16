@@ -72,16 +72,33 @@ public class CartItemDAOImpl implements ICartItemDAO {
                 }
         }
 
-        @Override
-        public CartItem findByProductId(int productId) {
-                EntityManager em = JPAConfig.getEntityManager();
-                em.getTransaction().begin();
-                String sql = "SELECT item FROM CartItem item WHERE item.product.productId = :id";
-                List<CartItem> result = em.createQuery(sql, CartItem.class).setParameter("id", productId).getResultList();
-                em.getTransaction().commit();
-                if (result.size() > 0) {
-                        return result.get(0);
-                }
-                return null;
+    @Override
+    public CartItem findByProductIdAndCartId(int productId, int cartId) {
+        EntityManager em = JPAConfig.getEntityManager();
+        CartItem result = null;
+
+        try {
+            em.getTransaction().begin();
+            String sql = "SELECT item FROM CartItem item WHERE item.product.productId = :productId AND item.cart.cartId = :cartId";
+            result = em.createQuery(sql, CartItem.class)
+                    .setParameter("productId", productId)
+                    .setParameter("cartId", cartId)
+                    .getSingleResult();
+            em.getTransaction().commit();
+        } catch (Exception ex) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+            ex.printStackTrace(); // Log the exception
+        } finally {
+            if (em != null && em.isOpen()) {
+                em.close();
+            }
         }
+
+        return result;
+    }
+
+
+
 }
