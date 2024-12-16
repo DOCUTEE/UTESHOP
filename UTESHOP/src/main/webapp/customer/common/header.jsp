@@ -150,7 +150,6 @@
 					</div>
 
 				</div>
-
 			</div>
 			<div class="col-sm-8 col-lg-4 d-flex justify-content-end gap-5 align-items-center mt-4 mt-sm-0 justify-content-center justify-content-sm-end">
 				<ul class="d-flex justify-content-end list-unstyled m-0">
@@ -180,6 +179,13 @@
 				<div class="cart text-end d-none d-lg-block dropdown">
 					<a href="${pageContext.request.contextPath}/cart">Cart</a>
 				</div>
+				<c:if test="${empty sessionScope.customer}">
+					<a href="${pageContext.request.contextPath}/customer/login" class="btn btn-primary">Login</a>
+					<a href="${pageContext.request.contextPath}/customer/register" class="btn btn-primary">Register</a>
+				</c:if>
+				<c:if test="${not empty sessionScope.customer}">
+					<a href="${pageContext.request.contextPath}/customer/logout" class="btn btn-dark">Logout</a>
+				</c:if>
 			</div>
 			<script>
 				// Hàm này sẽ tự động gửi request khi người dùng chọn một category từ dropdown
