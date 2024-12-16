@@ -63,12 +63,16 @@
                         <input type="text" name="ward" id="ward" class="form-control" required>
                     </div>
                     <div class="mb-3">
+                        <label for="streetNumber" class="form-label">Street Number</label>
+                        <input type="text" name="streetNumber" id="streetNumber" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
                         <label for="phone" class="form-label">Phone</label>
                         <input type="text" name="phone" id="phone" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label for="voucherId" class="form-label">Voucher Code</label>
-                        <input type="text" name="voucherId" id="voucherId" class="form-control">
+                        <label for="voucherCode" class="form-label">Voucher Code</label>
+                        <input type="text" name="voucherCode" id="voucherCode" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-primary">Place Order</button>
                 </form>

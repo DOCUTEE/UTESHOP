@@ -7,6 +7,7 @@ public interface ICartDAO {
         public void insert(Cart cart);
 
         public Cart findById(int id);
+        public void clearCart(Cart cart);
 
         void update(Cart cart);
 }

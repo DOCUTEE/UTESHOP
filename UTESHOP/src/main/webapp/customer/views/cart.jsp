@@ -53,7 +53,7 @@
 
     <!-- If cart is empty -->
     <c:if test="${empty cart || empty cart.cartItems}">
-        <p>Your cart is empty. <a href="${pageContext.request.contextPath}/shop">Continue shopping</a></p>
+        <p>Your cart is empty. <a href="${pageContext.request.contextPath}/home">Continue shopping</a></p>
     </c:if>
 </div>
 

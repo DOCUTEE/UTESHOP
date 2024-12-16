@@ -77,6 +77,9 @@
                 <%
             }
         %>
+        <div class="text-center my-4">
+            <a href="home" class="btn btn-primary">Back to Home</a>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

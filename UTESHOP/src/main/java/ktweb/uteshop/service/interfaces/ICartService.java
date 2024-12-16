@@ -8,4 +8,6 @@ public interface ICartService {
         void insert(Cart cart);
 
         void update(Cart cart);
+
+        void clearCart(Cart cart);
 }

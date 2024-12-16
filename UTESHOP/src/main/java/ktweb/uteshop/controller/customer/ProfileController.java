@@ -22,7 +22,7 @@ public class ProfileController extends HttpServlet {
                 }
                 catch (Exception ex) {
                         ex.printStackTrace();
-                        response.sendRedirect("/error");
+                        response.sendRedirect(request.getContextPath() + "/customer/error");
                 }
         }
 }
