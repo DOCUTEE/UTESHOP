@@ -16,4 +16,6 @@ public interface IProductService {
     List<Product> findByVendorId(int vendorId);
 
     List<Product> findByKeywordAndPage(String keyword, Integer page, Integer productByPage);
+    List<Product> findByVendorIdAndPage(int vendorId, int page, int pageSize);
+    void update(int productId, String name, String descript,int quantity,double price,double weight);
 }

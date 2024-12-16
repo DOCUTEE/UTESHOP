@@ -18,11 +18,11 @@ public class ProfileController extends HttpServlet {
                                 response.sendRedirect(request.getContextPath() + "/customer/login");
                                 return;
                         }
-                        request.getRequestDispatcher(request.getContextPath() + "/customer/views/profile.jsp").forward(request, response);
+                        request.getRequestDispatcher("/customer/views/profile.jsp").forward(request, response);
                 }
                 catch (Exception ex) {
                         ex.printStackTrace();
-                        response.sendRedirect("/error");
+                        response.sendRedirect(request.getContextPath()+"/customer/error");
                 }
         }
 }

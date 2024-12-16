@@ -59,4 +59,18 @@ public class VendorServiceImpl implements IVendorService {
         VendorDAOImpl vendorDAO = new VendorDAOImpl();
         return vendorDAO.findByKeywordAndPage(keyword, page, pageSize);
     }
+    @Override
+    public Vendor findByEmail(String email) {
+        VendorDAOImpl vendorDAO = new VendorDAOImpl();
+        return vendorDAO.findByEmail(email);
+    }
+    @Override
+    public boolean checkLogin(String email, String password) {
+        VendorDAOImpl vendorDAO = new VendorDAOImpl();
+        Vendor vendor = vendorDAO.findByEmail(email);
+        if (vendor != null && vendor.getPassword().equals(password)) {
+            return true;
+        }
+        return false;
+    }
 }

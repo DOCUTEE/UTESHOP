@@ -42,7 +42,7 @@
                     <tfoot>
                     <tr>
                         <td colspan="3" class="text-end"><strong>Total:</strong></td>
-                        <td>$<c:out value="${totalPrice}"/></td>
+                        <td><c:out value="${totalPrice}"/> VND</td>
                     </tr>
                     </tfoot>
                 </table>
@@ -51,16 +51,20 @@
                 <h3>Shipping Details</h3>
                 <form action="${pageContext.request.contextPath}/checkout" method="post">
                     <div class="mb-3">
-                        <label for="district" class="form-label">District</label>
-                        <input type="text" name="district" id="district" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
                         <label for="cityOfProvince" class="form-label">City/Province</label>
                         <input type="text" name="cityOfProvince" id="cityOfProvince" class="form-control" required>
                     </div>
                     <div class="mb-3">
+                        <label for="district" class="form-label">District</label>
+                        <input type="text" name="district" id="district" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
                         <label for="ward" class="form-label">Ward</label>
                         <input type="text" name="ward" id="ward" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="streetNumber" class="form-label">Street Number</label>
+                        <input type="text" name="streetNumber" id="streetNumber" class="form-control" required>
                     </div>
                     <div class="mb-3">
                         <label for="phone" class="form-label">Phone</label>
