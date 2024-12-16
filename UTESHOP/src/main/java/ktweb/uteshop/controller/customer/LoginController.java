@@ -21,7 +21,7 @@ public class LoginController extends HttpServlet {
                 HttpSession session = request.getSession(false);
                 try {
                         if (session != null && session.getAttribute("customer") != null) {
-                                response.sendRedirect(request.getContextPath() + "/customer/home");
+                                response.sendRedirect(request.getContextPath() + "/home");
                         } else {
                                 request.getRequestDispatcher("/customer/views/login.jsp").forward(request, response);
                         }

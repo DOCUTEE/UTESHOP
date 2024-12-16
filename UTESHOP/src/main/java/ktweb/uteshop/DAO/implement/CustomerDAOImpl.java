@@ -43,17 +43,19 @@ public class CustomerDAOImpl implements ICustomerDAO {
         }
 
         @Override
-        public void insert(Customer customer) {
+        public boolean insert(Customer customer) {
                 EntityManager em = JPAConfig.getEntityManager();
                 EntityTransaction trans = em.getTransaction();
                 try {
                         trans.begin();
                         em.persist(customer);
                         trans.commit();
+                        return true;
                 }
                 catch (Exception ex) {
                         trans.rollback();
-                        throw ex;
+                        ex.printStackTrace();
+                        return false;
                 }
         }
 

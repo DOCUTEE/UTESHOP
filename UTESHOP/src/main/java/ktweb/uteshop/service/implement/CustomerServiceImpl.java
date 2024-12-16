@@ -20,8 +20,8 @@ public class CustomerServiceImpl implements ICustomerService {
         }
 
         @Override
-        public void insert(Customer customer) {
-                customerDAO.insert(customer);
+        public boolean insert(Customer customer) {
+                return customerDAO.insert(customer);
         }
 
         @Override
