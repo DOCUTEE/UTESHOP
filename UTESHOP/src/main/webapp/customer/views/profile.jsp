@@ -26,6 +26,7 @@
 
         <!-- Edit Profile Button -->
         <a href="${pageContext.request.contextPath}/customer/edit-profile" class="btn btn-primary mt-3">Edit Profile</a>
+        <a href="${pageContext.request.contextPath}/customer/logout" class="btn btn-danger mt-3">Logout</a>
       </div>
     </div>
   </c:if>
