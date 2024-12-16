@@ -15,16 +15,24 @@ public class CartItemServiceImpl implements ICartItemService {
         }
 
         @Override
-        public void insert(CartItem cartItem) {
-                if (cartItemDAO.findByProductId(cartItem.getProduct().getProductId()) != null) {
-                        CartItem cartItem1 = cartItemDAO.findByProductId(cartItem.getProduct().getProductId());
-                        cartItem1.setQuantity(cartItem1.getQuantity() + cartItem.getQuantity());
-                        cartItem1.setPrice(cartItem1.getPrice() + cartItem.getPrice());
-                        cartItemDAO.update(cartItem1);
-                        return;
-                };
-                cartItemDAO.insert(cartItem);
+        public void insert(CartItem cartItem, Integer productId, Integer cartId) {
+                try {
+                        CartItem existingCartItem = cartItemDAO.findByProductIdAndCartId(productId, cartId);
+
+                        if (existingCartItem != null) {
+                                existingCartItem.setQuantity(existingCartItem.getQuantity() + cartItem.getQuantity());
+                                existingCartItem.setPrice(existingCartItem.getPrice() + cartItem.getPrice());
+                                cartItemDAO.update(existingCartItem);
+                        } else {
+                                cartItemDAO.insert(cartItem);
+                        }
+                        System.out.println("INSERT OKAY");
+                } catch (Exception e) {
+                        e.printStackTrace();
+                        // Handle exception as needed
+                }
         }
+
 
         @Override
         public void update(CartItem cartItem) {

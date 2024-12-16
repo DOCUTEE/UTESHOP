@@ -2,7 +2,9 @@ package ktweb.uteshop.service.implement;
 
 import ktweb.uteshop.DAO.implement.CustomerDAOImpl;
 import ktweb.uteshop.DAO.interfaces.ICustomerDAO;
+import ktweb.uteshop.entity.Cart;
 import ktweb.uteshop.entity.Customer;
+import ktweb.uteshop.service.interfaces.ICartService;
 import ktweb.uteshop.service.interfaces.ICustomerService;
 
 import java.util.List;
@@ -21,7 +23,14 @@ public class CustomerServiceImpl implements ICustomerService {
 
         @Override
         public boolean insert(Customer customer) {
-                return customerDAO.insert(customer);
+                if (customerDAO.insert(customer)) {
+                        ICartService cartService = new CartServiceImpl();
+                        Cart cart = new Cart();
+                        cart.setCustomer(customer);
+                        cartService.insert(cart);
+                        return true;
+                }
+                return false;
         }
 
         @Override
