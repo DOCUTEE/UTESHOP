@@ -62,9 +62,8 @@ public class CartItemDAOImpl implements ICartItemDAO {
                 EntityTransaction trans = em.getTransaction();
                 try {
                         trans.begin();
-                        CartItem cartItem = em.find(CartItem.class, id);
-                        System.out.println(cartItem.getCartItemId() + " " + cartItem.getProduct().getProductId());
-                        em.remove(cartItem);
+                        String jsql = "DELETE FROM CartItem item WHERE item.id = :id";
+                        em.createQuery(jsql).setParameter("id", id).executeUpdate();
                         trans.commit();
                 }
                 catch (Exception ex) {
