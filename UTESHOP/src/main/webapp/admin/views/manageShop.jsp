@@ -46,6 +46,8 @@
                     <td>
                         <a href="${pageContext.request.contextPath}/admin/edit-vendor?id=${vendor.vendorId}" class="btn btn-primary btn-sm">Edit</a>
                         <a href="${pageContext.request.contextPath}/admin/delete-vendor?id=${vendor.vendorId}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this vendor?');">Delete</a>
+                        <a href="${pageContext.request.contextPath}/admin/shop/product?vendorId=${vendor.vendorId}" class="btn btn-danger btn-sm" >View products</a>
+
                     </td>
                 </tr>
             </c:forEach>

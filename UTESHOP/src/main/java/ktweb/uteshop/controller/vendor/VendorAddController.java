@@ -58,6 +58,7 @@ public class VendorAddController extends HttpServlet {
         product.setWeight(weight);
         product.setVendor(vendor);
         product.setCategory(category);
+        productService.insert(product);
         IProductImageService productImageService = new ProductImageServiceImpl();
         if (productImages != null) {
             for (String image : productImages) {
@@ -67,7 +68,7 @@ public class VendorAddController extends HttpServlet {
                 productImageService.insert(productImage);
             }
         }
-        productService.insert(product);
+
         response.sendRedirect(request.getContextPath() + "/vendor/home");
     }
 }
