@@ -19,16 +19,12 @@ public class PurchaseController extends HttpServlet {
                                 response.sendRedirect(request.getContextPath() + "/customer/login");
                                 return;
                         }
-                        if (session.getAttribute("cartId") == null) {
-                                response.sendRedirect(request.getContextPath() + "customer/error");
-                                return;
-                        }
                         Integer customerId = ((Customer) session.getAttribute("customer")).getCustomerId();
-                        if (request.getAttribute("order") == null) {
+                        if (request.getSession().getAttribute("order") == null) {
                                 response.sendRedirect(request.getContextPath() + "/customer/error");
                                 return;
                         }
-                        request.setAttribute("order", orderService.findById((Integer) request.getAttribute("order")));
+                        request.setAttribute("order", orderService.findById((Integer) request.getSession().getAttribute("order")));
                         request.getRequestDispatcher("/customer/views/purchase.jsp").forward(request, response);
                 }
                 catch (Exception ex) {

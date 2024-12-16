@@ -44,10 +44,9 @@ public class Order {
     @Column(name = "totalCost", nullable = false)
     private double totalCost;
 
-    @Column(name = "discount", nullable = false)
+    @Column(name = "discount", nullable = false, columnDefinition = "DECIMAL(5,2)")
     private double discount;
-
-    @Column(name = "actualCost", nullable = false)
+    @Column(name = "actualCost", nullable = false, columnDefinition = "DECIMAL(5,2)")
     private double actualCost;
 
     @ManyToOne

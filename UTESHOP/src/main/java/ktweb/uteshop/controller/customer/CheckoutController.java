@@ -45,23 +45,24 @@ public class CheckoutController extends HttpServlet {
                                 response.sendRedirect(request.getContextPath() + "/customer/login");
                                 return;
                         }
-                        if (session.getAttribute("cartId") == null) {
-                                response.sendRedirect(request.getContextPath() + "customer/error");
-                                return;
-                        }
-                        Integer customerId = ((Customer) session.getAttribute("customer")).getCustomerId();
-                        Cart cart = cartService.findByCustomerId(customerId);
+                        Customer customer = ((Customer) session.getAttribute("customer"));
+                        Cart cart = cartService.findByCustomerId(customer.getCustomerId());
+
 
                         Order order = new Order();
+                        order.setCustomer(customer);
                         order.setDistrict(request.getParameter("district"));
                         order.setCityOfProvince(request.getParameter("cityOfProvince"));
                         order.setWard(request.getParameter("ward"));
                         order.setPhone(request.getParameter("phone"));
+                        order.setActualCost(0);
+                        order.setTotalCost(0);
                         Voucher voucher = voucherService.findById(Integer.parseInt(request.getParameter("voucherId")));
-                        order.setDiscount(voucher.getDiscount());
+                        if (voucher != null) order.setDiscount(voucher.getDiscount());
+                        else order.setDiscount(0);
                         orderService.checkout(order, cart);
-
-                        response.sendRedirect(request.getContextPath() + "/customer/purchase");
+                        request.getSession().setAttribute("order", order.getOrderId());
+                        response.sendRedirect(request.getContextPath() + "/purchase");
                 }
                 catch (Exception ex) {
                         ex.printStackTrace();

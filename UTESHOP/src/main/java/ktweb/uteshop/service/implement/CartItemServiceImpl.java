@@ -19,6 +19,7 @@ public class CartItemServiceImpl implements ICartItemService {
                 if (cartItemDAO.findByProductId(cartItem.getProduct().getProductId()) != null) {
                         CartItem cartItem1 = cartItemDAO.findByProductId(cartItem.getProduct().getProductId());
                         cartItem1.setQuantity(cartItem1.getQuantity() + cartItem.getQuantity());
+                        cartItem1.setPrice(cartItem1.getPrice() + cartItem.getPrice());
                         cartItemDAO.update(cartItem1);
                         return;
                 };

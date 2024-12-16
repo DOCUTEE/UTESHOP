@@ -11,6 +11,7 @@ import ktweb.uteshop.entity.OrderItem;
 import ktweb.uteshop.service.interfaces.ICartService;
 import ktweb.uteshop.service.interfaces.IOrderService;
 
+import java.sql.Date;
 import java.util.List;
 
 public class OrderServiceImpl implements IOrderService {
@@ -24,9 +25,11 @@ public class OrderServiceImpl implements IOrderService {
 
         @Override
         public void checkout(Order order, Cart cart) {
-
-                order.setOrderDate(new java.sql.Date(new java.util.Date().getTime()));
+                // Đặt ngày đặt hàng, khách hàng và các thông tin khác cho order
+                order.setOrderDate(Date.valueOf(java.time.LocalDate.now()));
                 order.setCustomer(cart.getCustomer());
+                orderDAO.insert(order);
+                // Duyệt qua từng cartItem để tạo OrderItem
                 for (CartItem cartItem : cart.getCartItems()) {
                         OrderItem orderItem = new OrderItem();
                         orderItem.setOrder(order);
@@ -34,15 +37,21 @@ public class OrderServiceImpl implements IOrderService {
                         orderItem.setQuantity(cartItem.getQuantity());
                         orderItem.setPrice(cartItem.getProduct().getPrice() * cartItem.getQuantity());
 
-                        orderItemDAO.insert(orderItem);
+                        orderItemDAO.insert(orderItem); // Lưu thực thể OrderItem
                         order.setTotalCost(order.getTotalCost() + orderItem.getPrice());
-
                 }
+
+                // Đặt chi phí thực tế sau khi trừ chiết khấu
                 order.setActualCost(order.getTotalCost() - order.getDiscount());
+
+                // Xóa các cartItems trong giỏ hàng sau khi đặt hàng
                 cart.getCartItems().clear();
                 cartService.update(cart);
-                orderDAO.insert(order);
+
+                // Cập nhật lại order
+                orderDAO.update(order);
         }
+
 
         @Override
         public Order findById(int id) {
