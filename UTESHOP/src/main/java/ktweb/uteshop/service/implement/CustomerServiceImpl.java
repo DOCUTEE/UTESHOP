@@ -45,7 +45,14 @@ public class CustomerServiceImpl implements ICustomerService {
         }
 
         @Override
+        public List<Customer> findByKeywordAndPage(String keyword, int page, int limit) {
+                return customerDAO.findByKeywordAndPage(keyword, page, limit);
+        }
+
+        @Override
         public Customer findByEmail(String email) {
                 return customerDAO.findByEmail(email);
         }
+
+
 }

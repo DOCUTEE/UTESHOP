@@ -1,5 +1,6 @@
 package ktweb.uteshop.DAO.implement;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 import ktweb.uteshop.DAO.interfaces.IOrderDAO;
@@ -88,5 +89,10 @@ public class OrderDAOImpl implements IOrderDAO {
                         trans.rollback();
                         throw ex;
                 }
+        }
+        @Override
+        public List<Order> findByVendorId(int vendorId, int page, int size) {
+                List<Order> orders = null;
+                return orders;
         }
 }
